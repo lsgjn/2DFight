@@ -27,7 +27,9 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool jumpPressed;
     [HideInInspector] public bool guardPressed;
     [HideInInspector] public bool dodgePressed;
+    [HideInInspector] public bool attackPressed;
 
+    
     /// <summary>
     /// 초기 설정: 기본 상태 지정 및 컴포넌트 캐싱
     /// </summary>
@@ -62,6 +64,8 @@ public class PlayerController : MonoBehaviour
         jumpPressed = Input.GetKeyDown(KeyCode.W);
         guardPressed = Input.GetKey(KeyCode.LeftControl);
         dodgePressed = Input.GetKeyDown(KeyCode.LeftAlt);
+        attackPressed = Input.GetKeyDown(KeyCode.F);
+
 
         // 🛠️ 메커니즘 커스텀 지점:
         // 여기에 더 많은 입력을 추가하거나,
