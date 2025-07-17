@@ -43,7 +43,7 @@ public class DodgeState : PlayerState
         elapsed += Time.deltaTime;
 
         // 이동 적용 (짧은 시간 동안 빠르게 이동)
-        controller.rb.velocity = new Vector2(dodgeDirection * dodgeSpeed, controller.rb.velocity.y);
+        controller.rb.linearVelocity = new Vector2(dodgeDirection * dodgeSpeed, controller.rb.linearVelocity.y);
 
         if (elapsed >= dodgeDuration)
         {

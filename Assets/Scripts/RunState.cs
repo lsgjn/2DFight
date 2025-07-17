@@ -77,7 +77,7 @@ public class RunState : PlayerState
 
         // 캐릭터 방향 반영
         if (direction != 0)
-            controller.spriteRenderer.flipX = direction < 0;
+            controller.spriteRenderer.flipX = direction > 0;
 
         // 🛠️ 커스텀 포인트:
         // - Dust Trail 생성

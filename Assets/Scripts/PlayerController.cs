@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool guardPressed;
     [HideInInspector] public bool dodgePressed;
 
+     [HideInInspector] public bool AttackPressed;
+
     /// <summary>
     /// 초기 설정: 기본 상태 지정 및 컴포넌트 캐싱
     /// </summary>
@@ -59,9 +61,10 @@ public class PlayerController : MonoBehaviour
     {
         inputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         isShiftHeld = Input.GetKey(KeyCode.LeftShift);
-        jumpPressed = Input.GetKeyDown(KeyCode.Space);
-        guardPressed = Input.GetKey(KeyCode.LeftControl);
+        jumpPressed = Input.GetKeyDown(KeyCode.W);
+        guardPressed = Input.GetKey(KeyCode.G);
         dodgePressed = Input.GetKeyDown(KeyCode.LeftAlt);
+        AttackPressed = Input.GetKeyDown(KeyCode.F); // 공격 입력
 
         // 🛠️ 메커니즘 커스텀 지점:
         // 여기에 더 많은 입력을 추가하거나,

@@ -55,6 +55,13 @@ public class IdleState : PlayerState
             return;
         }
 
+        if (controller.AttackPressed)
+        {
+            controller.TransitionTo(new AttackState(controller));
+            return;
+        }
+    
+
         // 🛠️ 메커니즘 커스텀 지점:
         // - 상태 유지 중 아이들 애니메이션 루프 제어
         // - 플레이어 방향 변경, 무기 장비 해제 등 추가 가능
@@ -62,7 +69,12 @@ public class IdleState : PlayerState
 
     public override void Update()
     {
-        // Idle 상태에서 지속적으로 처리할 로직 (예: 캐릭터 회전, 스탯 회복 등)
-        // controller.spriteRenderer.flipX = (controller.inputDirection.x < 0);
+        float direction = controller.inputDirection.x;
+
+        if (direction != 0)
+            controller.spriteRenderer.flipX = direction > 0;
+
+        // 🛠️ Idle 상태에서 지속적으로 처리할 로직 (예: 캐릭터 회복, 숨쉬기 등)
     }
+
 }

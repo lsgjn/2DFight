@@ -33,11 +33,11 @@ public class FallState : PlayerState
         }
 
         // 낙하 중 가드 가능 (설정에 따라 제한할 수 있음)
-        if (controller.guardPressed)
-        {
-            controller.TransitionTo(new GuardState(controller));
-            return;
-        }
+        // if (controller.guardPressed)
+        // {
+        //     controller.TransitionTo(new GuardState(controller));
+        //     return;
+        // }
 
         // 🛠️ 커스텀 포인트:
         // - 공중 공격, 공중 대시 등 처리 가능
@@ -52,7 +52,7 @@ public class FallState : PlayerState
 
         // 캐릭터 방향 전환
         if (direction != 0)
-            controller.spriteRenderer.flipX = direction < 0;
+            controller.spriteRenderer.flipX = direction > 0;
 
         // 착지 판별
         if (IsGrounded())
@@ -70,8 +70,12 @@ public class FallState : PlayerState
     /// </summary>
     private bool IsGrounded()
     {
-        // 간단한 Raycast를 이용한 바닥 판별
-        RaycastHit2D hit = Physics2D.Raycast(controller.transform.position, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
-        return hit.collider != null;
+        // Collider2D col = controller.GetComponent<Collider2D>();
+        // Vector2 origin = (Vector2)col.bounds.center + Vector2.down * (col.bounds.extents.y + 0.05f);
+        // float rayLength = 0.2f;
+        // RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.down, rayLength, LayerMask.GetMask("Ground"));
+        // Debug.DrawRay(origin, Vector2.down * rayLength, Color.red, 0.1f);
+        // return hit.collider != null;
+        return controller.rb.IsTouchingLayers(LayerMask.GetMask("Ground"));
     }
 }

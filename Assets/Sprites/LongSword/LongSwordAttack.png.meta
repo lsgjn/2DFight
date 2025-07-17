@@ -1,0 +1,299 @@
+fileFormatVersion: 2
+guid: a041d4e26dab3454fae62706d655eebd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7523230756111865662
+    second: LongSwordAttack_0
+  - first:
+      213: 7070520385931855335
+    second: LongSwordAttack_1
+  - first:
+      213: -6194945125133041839
+    second: LongSwordAttack_2
+  - first:
+      213: 8199456289784326785
+    second: LongSwordAttack_3
+  - first:
+      213: 1210726724807382654
+    second: LongSwordAttack_4
+  - first:
+      213: -589640352844292328
+    second: LongSwordAttack_5
+  - first:
+      213: -9040382557578234509
+    second: LongSwordAttack_6
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LongSwordAttack_0
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 2127
+        width: 1148
+        height: 1144
+      alignment: 9
+      pivot: {x: 0.5270069, y: 0.40062815}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c8a8a2bc7d189790800000000000000
+      internalID: -7523230756111865662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongSwordAttack_1
+      rect:
+        serializedVersion: 2
+        x: 1369
+        y: 2094
+        width: 610
+        height: 1244
+      alignment: 9
+      pivot: {x: 0.5310603, y: 0.38369328}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e540ac64d88f1260800000000000000
+      internalID: 7070520385931855335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongSwordAttack_2
+      rect:
+        serializedVersion: 2
+        x: 2335
+        y: 2225
+        width: 668
+        height: 952
+      alignment: 9
+      pivot: {x: 0.55488706, y: 0.3494473}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15f386d1b32270aa0800000000000000
+      internalID: -6194945125133041839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongSwordAttack_3
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 1167
+        width: 873
+        height: 628
+      alignment: 9
+      pivot: {x: 0.51559, y: 0.36942992}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18aefef8d025ac170800000000000000
+      internalID: 8199456289784326785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongSwordAttack_4
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 1171
+        width: 982
+        height: 920
+      alignment: 9
+      pivot: {x: 0.60182726, y: 0.3731947}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e765730aa8d5dc010800000000000000
+      internalID: 1210726724807382654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongSwordAttack_5
+      rect:
+        serializedVersion: 2
+        x: 2190
+        y: 1167
+        width: 1024
+        height: 944
+      alignment: 9
+      pivot: {x: 0.54231524, y: 0.36229512}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81fda7f193d21d7f0800000000000000
+      internalID: -589640352844292328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LongSwordAttack_6
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 115
+        width: 859
+        height: 828
+      alignment: 9
+      pivot: {x: 0.6306135, y: 0.5347053}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37579ed36fb1a8280800000000000000
+      internalID: -9040382557578234509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 9eb1c17885f62364f8d7965bf939fde2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      LongSwordAttack_0: -7523230756111865662
+      LongSwordAttack_1: 7070520385931855335
+      LongSwordAttack_2: -6194945125133041839
+      LongSwordAttack_3: 8199456289784326785
+      LongSwordAttack_4: 1210726724807382654
+      LongSwordAttack_5: -589640352844292328
+      LongSwordAttack_6: -9040382557578234509
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -51,7 +51,7 @@ public class GuardState : PlayerState
         // 캐릭터 방향 유지 (좌우 회전 가능 여부는 게임 디자인에 따라)
         float dir = controller.inputDirection.x;
         if (dir != 0)
-            controller.spriteRenderer.flipX = dir < 0;
+            controller.spriteRenderer.flipX = dir > 0;
 
         // 🛠️ 커스텀 포인트:
         // - 가드 지속 시간, 스태미너 감소

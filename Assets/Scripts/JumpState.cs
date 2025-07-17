@@ -53,7 +53,7 @@ public class JumpState : PlayerState
 
         // 캐릭터 방향 반영
         if (direction != 0)
-            controller.spriteRenderer.flipX = direction < 0;
+            controller.spriteRenderer.flipX = direction > 0;
 
         // 낙하 상태로 전이 (y 속도가 0보다 작아지는 시점)
         if (controller.rb.linearVelocity.y <= 0)
