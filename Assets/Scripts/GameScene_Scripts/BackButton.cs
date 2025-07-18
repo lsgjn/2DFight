@@ -11,6 +11,7 @@ public class BackButton : MonoBehaviour
         // 씬이 로드될 때 필요한 초기화 작업을 수행할 수 있습니다.
         // 예: 씬 전환 효과 설정 등
         Back = GameObject.Find("Back").GetComponent<Button>();
+        StartG = GameObject.Find("StartG").GetComponent<Button>();
     }
     public void LoadScene(string sceneName)
     {
@@ -21,7 +22,7 @@ public class BackButton : MonoBehaviour
     public void OnGameStartGButtonClicked()
     {
         // 게임 시작 버튼 클릭 시 호출되는 메서드
-        LoadScene("GameScene");
+        LoadScene("Battle");
     }
     
     public void OnBackButtonClicked()
@@ -33,6 +34,7 @@ public class BackButton : MonoBehaviour
     {
         // 버튼 클릭 이벤트에 메서드를 연결합니다.
         Back.onClick.AddListener(OnBackButtonClicked);
+        StartG.onClick.AddListener(OnGameStartGButtonClicked);
     }
 
 }

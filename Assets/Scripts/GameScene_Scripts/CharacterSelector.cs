@@ -1,46 +1,80 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class CharacterSelector : MonoBehaviour
+public class CharacterSelectManager : MonoBehaviour
 {
-    public GameObject[] characterPrefabs;      // 선택 가능한 캐릭터 프리팹들
-    public Transform displayPosition;          // 캐릭터를 보여줄 위치
+    // === 선택 정보 ===
+    private int p1Index = 0;
+    private int p2Index = 0;
 
-    private int currentIndex = 0;              // 현재 선택 중인 캐릭터 인덱스
-    private GameObject currentCharacter;       // 현재 화면에 보이는 캐릭터
+    private bool p1Confirmed = false;
+    private bool p2Confirmed = false;
+
+    // === 캐릭터 데이터 ===
+    public Sprite[] characterSprites;
+    public string[] characterNames;
+    public string[] characterDescriptions;
+
+    // === UI 참조 ===
+    [Header("P1 UI")]
+    public Image p1Image;
+    public Text p1Name;
+    public Text p1Description;
+
+    [Header("P2 UI")]
+    public Image p2Image;
+    public Text p2Name;
+    public Text p2Description;
 
     void Start()
     {
-        ShowCharacter(currentIndex);
+        UpdateUI(1);
+        UpdateUI(2);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        // --- P1 입력 (A/D/W) ---
+        if (!p1Confirmed)
         {
-            currentIndex = (currentIndex + 1) % characterPrefabs.Length;
-            ShowCharacter(currentIndex);
+            if (Input.GetKeyDown(KeyCode.A)) { p1Index = Prev(p1Index); UpdateUI(1); }
+            if (Input.GetKeyDown(KeyCode.D)) { p1Index = Next(p1Index); UpdateUI(1); }
+            if (Input.GetKeyDown(KeyCode.W)) { p1Confirmed = true; }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        // --- P2 입력 (←/→/Enter) ---
+        if (!p2Confirmed)
         {
-            currentIndex = (currentIndex - 1 + characterPrefabs.Length) % characterPrefabs.Length;
-            ShowCharacter(currentIndex);
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) { p2Index = Prev(p2Index); UpdateUI(2); }
+            if (Input.GetKeyDown(KeyCode.RightArrow)) { p2Index = Next(p2Index); UpdateUI(2); }
+            if (Input.GetKeyDown(KeyCode.Return)) { p2Confirmed = true; }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return)) // Enter 키로 선택
+        // --- 둘 다 선택했을 때 게임 시작 ---
+        if (p1Confirmed && p2Confirmed)
         {
-            PlayerPrefs.SetInt("SelectedCharacterIndex", currentIndex);
-            SceneManager.LoadScene("GameScene"); // 실제 게임 씬 이름으로 변경
+            Debug.Log($"P1: {characterNames[p1Index]}, P2: {characterNames[p2Index]}");
+            // LoadScene("BattleScene") 같은 코드 실행
         }
     }
 
-    void ShowCharacter(int index)
-    {
-        if (currentCharacter != null)
-            Destroy(currentCharacter);
+    int Next(int index) => (index + 1) % characterSprites.Length;
+    int Prev(int index) => (index - 1 + characterSprites.Length) % characterSprites.Length;
 
-        currentCharacter = Instantiate(characterPrefabs[index], displayPosition.position, Quaternion.identity);
-        currentCharacter.transform.SetParent(displayPosition); // 부모 지정 (선택사항)
+    void UpdateUI(int player)
+    {
+        int idx = (player == 1) ? p1Index : p2Index;
+        if (player == 1)
+        {
+            p1Image.sprite = characterSprites[idx];
+            p1Name.text = characterNames[idx];
+            p1Description.text = characterDescriptions[idx];
+        }
+        else
+        {
+            p2Image.sprite = characterSprites[idx];
+            p2Name.text = characterNames[idx];
+            p2Description.text = characterDescriptions[idx];
+        }
     }
 }
