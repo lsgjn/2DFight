@@ -36,8 +36,8 @@ public class FSMTestRunner : MonoBehaviour
         player.TransitionTo(new AttackState(player));
         yield return WaitState("Attack", 0.5f);
 
-        player.TransitionTo(new DodgeState(player));
-        yield return WaitState("Dodge", 0.4f);
+        // player.TransitionTo(new DodgeState(player));
+        // yield return WaitState("Dodge", 0.4f);
 
         player.TransitionTo(new IdleState(player));
         Debug.Log("✅ FSM 테스트 완료");

@@ -1,8 +1,4 @@
 using UnityEngine;
-
-/// <summary>
-/// 공격 vs 방어/패링 충돌을 중앙에서 판단하는 전투 해석기
-/// </summary>
 public class CombatResolver : MonoBehaviour
 {
     public static CombatResolver Instance;
@@ -13,26 +9,33 @@ public class CombatResolver : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    /// <summary>
-    /// 히트 충돌 시 패링 또는 데미지 판단
-    /// </summary>
     public void ResolveHit(PlayerController attacker, PlayerController defender)
     {
         if (defender == null || attacker == null) return;
 
-        var defenderParry = defender.GetComponent<ParrySystem>();
-        var attackerDamage = attacker.GetComponent<DamageReceiver>();
-        var defenderDamage = defender.GetComponent<DamageReceiver>();
+        var guard = defender.GetComponent<GuardSystem>();
 
-        // 패링 성공 조건: 방어자가 패링 상태 && 공격자가 패링 당할 수 있음
-        if (defenderParry != null && defenderParry.IsParryActive() && attacker.IsParryable)
+        if (defender.IsGuarding && guard != null && guard.IsGuardAvailable())
         {
-            Debug.Log("💥 패링 성공! → " + attacker.name + " 스턴됨");
-            attackerDamage?.ApplyStun();
+            guard.ConsumeGuard();
+
+            // 🌀 이펙트 출력 (예시 - GuardEffect 프리팹)
+            GameObject effect = Object.Instantiate(Resources.Load<GameObject>("GuardEffect"),
+                defender.transform.position, Quaternion.identity);
+            Object.Destroy(effect, 1f); // 1초 후 파괴
+
+            Debug.Log("🛡️ 가드 성공! 게이지 감소");
             return;
         }
 
-        // 그 외에는 정상적인 공격 처리
-        defenderDamage?.ApplyDamage(attacker.gameObject);
+        // 기존 패링
+        var parry = defender.GetComponent<ParrySystem>();
+        if (parry != null && parry.IsParryActive() && attacker.IsParryable)
+        {
+            attacker.GetComponent<DamageReceiver>()?.ApplyStun();
+            return;
+        }
+
+        defender.GetComponent<DamageReceiver>()?.ApplyDamage(attacker.gameObject);
     }
 }
