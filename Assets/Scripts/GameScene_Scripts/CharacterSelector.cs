@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CharacterSelectManager : MonoBehaviour
+public class CharacterSelector : MonoBehaviour
 {
+    public GameObject[] characterPrefabs; // 프리팹 배열 추가
+
     // === 선택 정보 ===
     private int p1Index = 0;
     private int p2Index = 0;
@@ -39,7 +42,7 @@ public class CharacterSelectManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.A)) { p1Index = Prev(p1Index); UpdateUI(1); }
             if (Input.GetKeyDown(KeyCode.D)) { p1Index = Next(p1Index); UpdateUI(1); }
-            if (Input.GetKeyDown(KeyCode.W)) { p1Confirmed = true; }
+            if (Input.GetKeyDown(KeyCode.Return)) { p1Confirmed = true; }
         }
 
         // --- P2 입력 (←/→/Enter) ---
@@ -47,14 +50,16 @@ public class CharacterSelectManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow)) { p2Index = Prev(p2Index); UpdateUI(2); }
             if (Input.GetKeyDown(KeyCode.RightArrow)) { p2Index = Next(p2Index); UpdateUI(2); }
-            if (Input.GetKeyDown(KeyCode.Return)) { p2Confirmed = true; }
+            if (Input.GetKeyDown(KeyCode.KeypadEnter)) { p2Confirmed = true; }
         }
 
         // --- 둘 다 선택했을 때 게임 시작 ---
         if (p1Confirmed && p2Confirmed)
         {
-            Debug.Log($"P1: {characterNames[p1Index]}, P2: {characterNames[p2Index]}");
-            // LoadScene("BattleScene") 같은 코드 실행
+            CharacterSelectData.Instance.p1Prefab = characterPrefabs[p1Index];
+            CharacterSelectData.Instance.p2Prefab = characterPrefabs[p2Index];
+
+            UnityEngine.SceneManagement.SceneManager.LoadScene("BattleScene");
         }
     }
 

@@ -20,12 +20,5 @@ public class CharacterSelectData : MonoBehaviour
         }
     }
 
-    // void ConfirmSelection()
-    // {
-    //     CharacterSelectData.Instance.p1Prefab = characterPrefabs[p1Index];
-    //     CharacterSelectData.Instance.p2Prefab = characterPrefabs[p2Index];
-
-    //     SceneManager.LoadScene("BattleScene");
-    // }
 
 }
