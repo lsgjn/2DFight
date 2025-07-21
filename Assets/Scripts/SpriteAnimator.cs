@@ -11,7 +11,7 @@ public class SpriteAnimator : MonoBehaviour
         Fall,
         Attack,
         Guard,
-        Dodge,
+        // Dodge,
         Death
     }
 

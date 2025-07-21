@@ -1,5 +1,4 @@
 using UnityEngine;
-
 [RequireComponent(typeof(BoxCollider2D), typeof(Animator))]
 public class Hitbox : MonoBehaviour
 {
@@ -15,11 +14,11 @@ public class Hitbox : MonoBehaviour
     }
 
     public void Activate()
-    {
-        col.enabled = true;
-        anim.Play("HitboxSlash");
-        Invoke(nameof(Disable), 0.15f); // 애니메이션 길이만큼만 판정 유지
-    }
+{
+    col.enabled = true;
+    anim.Play("AttackHitbox");
+    Invoke(nameof(Disable), 0.3f); // 공격 판정 지속 시간 (ex. 0.3초)
+}
 
     private void Disable()
     {
@@ -32,7 +31,10 @@ public class Hitbox : MonoBehaviour
         {
             var defender = hurtbox.GetComponentInParent<PlayerController>();
             var attacker = GetComponentInParent<PlayerController>();
-            CombatResolver.Instance.ResolveHit(attacker, defender);
+            if (defender != null && attacker != null)
+            {
+                CombatResolver.Instance.ResolveHit(attacker, defender);
+            }
         }
     }
 }
