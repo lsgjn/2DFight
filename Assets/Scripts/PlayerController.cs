@@ -18,16 +18,26 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public SpriteAnimator animator;
     [HideInInspector] public PlayerInputHandler input;
     [HideInInspector] public Hitbox swordHitbox;
+    [HideInInspector] public SpriteRenderer spriteRenderer;
 
-    public bool IsParryable { get; set; }  // ✅ 이 줄을 추가하세요
+    public bool IsParryable { get; set; }
 
     private PlayerState currentState;
+
+
+public bool IsGuarding { get; private set; }
+public void SetGuarding(bool value) => IsGuarding = value;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<SpriteAnimator>();
         input = GetComponent<PlayerInputHandler>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        swordHitbox = transform.Find("SwordHitbox")?.GetComponent<Hitbox>();
+        if (swordHitbox == null)
+            Debug.LogError("SwordHitbox not found or Hitbox component missing!");
     }
 
     void Start()
@@ -54,12 +64,12 @@ public class PlayerController : MonoBehaviour
         // TODO: 실제 바닥 판정 구현 필요
         return true;
     }
-    public void FaceDirection(float moveX)
-{
-    if (moveX > 0.05f)
-        transform.localScale = new Vector3(-1f, transform.localScale.y, transform.localScale.z);
-    else if (moveX < -0.05f)
-        transform.localScale = new Vector3(1f, transform.localScale.y, transform.localScale.z);
-}
-}
 
+    public void FaceDirection(float moveX)
+    {
+        if (moveX > 0.05f)
+            transform.localScale = new Vector3(-1f, transform.localScale.y, transform.localScale.z);
+        else if (moveX < -0.05f)
+            transform.localScale = new Vector3(1f, transform.localScale.y, transform.localScale.z);
+    }
+}

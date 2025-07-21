@@ -21,9 +21,9 @@ public class PlayerInputHandler : MonoBehaviour
         {
             InputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             JumpPressed = Input.GetKeyDown(KeyCode.W);
-            GuardPressed = Input.GetKey(KeyCode.LeftControl);
+            GuardPressed = Input.GetKey(KeyCode.G);
             AttackPressed = Input.GetKeyDown(KeyCode.F);
-            DodgePressed = Input.GetKeyDown(KeyCode.LeftAlt);
+            // DodgePressed = Input.GetKeyDown(KeyCode.LeftAlt);
         }
         else if (playerId == PlayerId.Player2)
         {
@@ -32,9 +32,9 @@ public class PlayerInputHandler : MonoBehaviour
                 Input.GetKey(KeyCode.UpArrow) ? 1 : Input.GetKey(KeyCode.DownArrow) ? -1 : 0
             );
             JumpPressed = Input.GetKeyDown(KeyCode.UpArrow);
-            GuardPressed = Input.GetKey(KeyCode.RightControl);
+            GuardPressed = Input.GetKey(KeyCode.G);
             AttackPressed = Input.GetKeyDown(KeyCode.Keypad1);
-            DodgePressed = Input.GetKeyDown(KeyCode.Keypad2);
+            // DodgePressed = Input.GetKeyDown(KeyCode.Keypad2);
         }
     }
 }
