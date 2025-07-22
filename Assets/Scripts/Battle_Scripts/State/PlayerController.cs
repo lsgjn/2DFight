@@ -24,9 +24,11 @@ public class PlayerController : MonoBehaviour
 
     private PlayerState currentState;
 
+    private Vector3 originalScale;
 
-public bool IsGuarding { get; private set; }
-public void SetGuarding(bool value) => IsGuarding = value;
+
+    public bool IsGuarding { get; private set; }
+    public void SetGuarding(bool value) => IsGuarding = value;
 
     void Awake()
     {
@@ -34,6 +36,8 @@ public void SetGuarding(bool value) => IsGuarding = value;
         animator = GetComponent<SpriteAnimator>();
         input = GetComponent<PlayerInputHandler>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        originalScale = transform.localScale;  // ✅ 프리팹 크기 기억
 
         swordHitbox = transform.Find("SwordHitbox")?.GetComponent<Hitbox>();
         if (swordHitbox == null)
@@ -67,9 +71,28 @@ public void SetGuarding(bool value) => IsGuarding = value;
 
     public void FaceDirection(float moveX)
     {
-        if (moveX > 0.05f)
-            transform.localScale = new Vector3(-1f, transform.localScale.y, transform.localScale.z);
+        bool facingRight = moveX > 0.05f;
+
+        // 스프라이트 반전
+        if (facingRight)
+            transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
         else if (moveX < -0.05f)
-            transform.localScale = new Vector3(1f, transform.localScale.y, transform.localScale.z);
+            transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
+
+        // ✅ 히트박스 offset 반전
+        if (swordHitbox != null)
+        {
+            var box = swordHitbox.GetComponent<BoxCollider2D>();
+            if (box != null)
+            {
+                Vector2 originalOffset = box.offset;
+                box.offset = new Vector2(
+                    facingRight ? Mathf.Abs(originalOffset.x) : -Mathf.Abs(originalOffset.x),
+                    originalOffset.y
+                );
+            }
+        }
     }
+
+
 }
