@@ -14,11 +14,19 @@ public class PlayerController : MonoBehaviour
     public PlayerId playerId;
     public WeaponType weaponType;
 
+    [Header("캐릭터 능력치")]
+    public float moveSpeed = 6f; // 프리팹별 이동 속도
+    public float jumpForce = 7f; // 프리팹별 점프력
+    public float dodgeSpeed = 8f; // 프리팹별 회피 속도
+    public float attackSpeed = 1f; // 프리팹별 공격 속도 또는 딜레이
+
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public SpriteAnimator animator;
     [HideInInspector] public PlayerInputHandler input;
     [HideInInspector] public Hitbox swordHitbox;
     [HideInInspector] public SpriteRenderer spriteRenderer;
+
+    [HideInInspector] public GameObject guardBox;
 
     public bool IsParryable { get; set; }
 
@@ -26,27 +34,41 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 originalScale;
 
-
     public bool IsGuarding { get; private set; }
     public void SetGuarding(bool value) => IsGuarding = value;
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<SpriteAnimator>();
-        input = GetComponent<PlayerInputHandler>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+         rb = GetComponent<Rigidbody2D>();
+    animator = GetComponent<SpriteAnimator>();
+    input = GetComponent<PlayerInputHandler>();
+    spriteRenderer = GetComponent<SpriteRenderer>();
 
-        originalScale = transform.localScale;  // ✅ 프리팹 크기 기억
+    originalScale = transform.localScale;
 
-        swordHitbox = transform.Find("SwordHitbox")?.GetComponent<Hitbox>();
-        if (swordHitbox == null)
-            Debug.LogError("SwordHitbox not found or Hitbox component missing!");
+    swordHitbox = transform.Find("SwordHitbox")?.GetComponent<Hitbox>();
+    if (swordHitbox == null)
+        Debug.LogError("SwordHitbox not found or Hitbox component missing!");
+
+    // 🔽 2. guardBox 자동 연결 (이름이 "GuardBox"인 자식 GameObject 찾아 연결)
+    guardBox = transform.Find("GuardBox")?.gameObject;
+    if (guardBox == null)
+        Debug.LogWarning("GuardBox not found under Player prefab!");
     }
 
     void Start()
     {
         TransitionTo(new IdleState(this));
+
+         // 체력 UI 연결
+    var health = GetComponentInChildren<HealthBarUI>();
+    if (health != null)
+        health.target = GetComponent<DamageReceiver>();
+
+    // 가드 UI 연결
+    var guard = GetComponentInChildren<GuardGaugeUI>();
+    if (guard != null)
+        guard.target = GetComponent<GuardSystem>();
     }
 
     void Update()
@@ -93,6 +115,4 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-
 }

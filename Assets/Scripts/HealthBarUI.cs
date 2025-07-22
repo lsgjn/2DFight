@@ -6,20 +6,17 @@ using UnityEngine.UI;
 /// </summary>
 public class HealthBarUI : MonoBehaviour
 {
-    public DamageReceiver target;
-    public Image fillBar;
+    [Header("체력 UI 설정")]
+    public DamageReceiver target;  // 연결될 대상 (플레이어)
+    public Image fillBar;          // 채워지는 이미지
 
-    private int lastHP = -1;
-
-    void Update()
+    private void Update()
     {
         if (target == null || fillBar == null) return;
 
-        int current = Mathf.Max(0, target.IsDead() ? 0 : target.GetCurrentHP());
-        if (current != lastHP)
-        {
-            fillBar.fillAmount = (float)current / target.maxHP;
-            lastHP = current;
-        }
+        int currentHP = Mathf.Clamp(target.GetCurrentHP(), 0, target.maxHP);
+        float ratio = (float)currentHP / target.maxHP;
+
+        fillBar.fillAmount = ratio;
     }
 }
