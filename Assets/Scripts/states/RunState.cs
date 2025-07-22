@@ -41,5 +41,10 @@ public class RunState : PlayerState
         controller.rb.linearVelocity = new Vector2(input.x * moveSpeed, controller.rb.linearVelocity.y);
 
         controller.FaceDirection(controller.input.InputDirection.x);
+           // 원래 이동 속도
+        controller.rb.linearVelocity = new Vector2(input.x * moveSpeed, controller.rb.linearVelocity.y);
+
+        // 추가: 프리팹 설정 속도도 반영
+        controller.rb.linearVelocity += new Vector2(input.x * controller.moveSpeed, 0);
     }
 }

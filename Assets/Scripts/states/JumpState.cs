@@ -3,7 +3,6 @@ using UnityEngine;
 public class JumpState : PlayerState
 {
     private bool hasJumped = false;
-    private float jumpForce = 7f;
 
     public JumpState(PlayerController controller) : base(controller) {}
 
@@ -19,15 +18,17 @@ public class JumpState : PlayerState
 
     public override void Update()
     {
-        var input = controller.input.InputDirection; 
+        var input = controller.input.InputDirection;
+
         if (!hasJumped)
         {
-            controller.rb.linearVelocity = new Vector2(controller.rb.linearVelocity.x, jumpForce);  // ✅ 수정
+            // ✅ 프리팹 설정값 기반 점프력 사용
+            controller.rb.linearVelocity = new Vector2(controller.rb.linearVelocity.x, controller.jumpForce);
             hasJumped = true;
         }
 
-       
-        controller.rb.linearVelocity = new Vector2(input.x * 5f, controller.rb.linearVelocity.y);  // ✅ 수정
+        // ✅ 프리팹 설정값 기반 수평 속도 사용
+        controller.rb.linearVelocity = new Vector2(input.x * controller.moveSpeed, controller.rb.linearVelocity.y);
 
         controller.FaceDirection(input.x);
 

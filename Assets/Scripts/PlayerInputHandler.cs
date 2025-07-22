@@ -16,25 +16,27 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void ReadInput()
     {
-        // 1P: WASD / 2P: ArrowKeys
         if (playerId == PlayerId.Player1)
         {
-            InputDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            JumpPressed = Input.GetKeyDown(KeyCode.W);
-            GuardPressed = Input.GetKey(KeyCode.G);
+            // 1P: W (점프), A/D (이동), F (공격), G (가드)
+            InputDirection = new Vector2(
+                Input.GetKey(KeyCode.D) ? 1 : Input.GetKey(KeyCode.A) ? -1 : 0,
+                Input.GetKey(KeyCode.W) ? 1 : 0
+            );
+            JumpPressed   = Input.GetKeyDown(KeyCode.W);
+            GuardPressed  = Input.GetKey(KeyCode.G);
             AttackPressed = Input.GetKeyDown(KeyCode.F);
-            // DodgePressed = Input.GetKeyDown(KeyCode.LeftAlt);
         }
         else if (playerId == PlayerId.Player2)
         {
+            // 2P: ↑ (점프), ←→ (이동), Keypad1 (공격), Keypad2 (가드)
             InputDirection = new Vector2(
                 Input.GetKey(KeyCode.RightArrow) ? 1 : Input.GetKey(KeyCode.LeftArrow) ? -1 : 0,
-                Input.GetKey(KeyCode.UpArrow) ? 1 : Input.GetKey(KeyCode.DownArrow) ? -1 : 0
+                Input.GetKey(KeyCode.UpArrow) ? 1 : 0
             );
-            JumpPressed = Input.GetKeyDown(KeyCode.UpArrow);
-            GuardPressed = Input.GetKey(KeyCode.G);
+            JumpPressed   = Input.GetKeyDown(KeyCode.UpArrow);
+            GuardPressed  = Input.GetKey(KeyCode.Keypad2);
             AttackPressed = Input.GetKeyDown(KeyCode.Keypad1);
-            // DodgePressed = Input.GetKeyDown(KeyCode.Keypad2);
         }
     }
 }

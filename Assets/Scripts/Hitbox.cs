@@ -27,6 +27,7 @@ public class Hitbox : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("Hitbox 충돌 발생: " + other.name);
         if (other.TryGetComponent(out Hurtbox hurtbox))
         {
             var defender = hurtbox.GetComponentInParent<PlayerController>();
