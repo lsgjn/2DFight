@@ -54,13 +54,13 @@ public class CharacterSelector : MonoBehaviour
         }
 
         // --- 둘 다 선택했을 때 게임 시작 ---
-        // if (p1Confirmed && p2Confirmed)
-        // {
-        //     CharacterSelectData.Instance.p1Prefab = characterPrefabs[p1Index];
-        //     CharacterSelectData.Instance.p2Prefab = characterPrefabs[p2Index];
+        if (p1Confirmed && p2Confirmed)
+        {
+            CharacterSelectData.Instance.p1Prefab = characterPrefabs[p1Index];
+            CharacterSelectData.Instance.p2Prefab = characterPrefabs[p2Index];
 
-        //     UnityEngine.SceneManagement.SceneManager.LoadScene("BattleScene");
-        // }
+            //UnityEngine.SceneManagement.SceneManager.LoadScene("BattleScene");
+        }
     }
 
     int Next(int index) => (index + 1) % characterSprites.Length;

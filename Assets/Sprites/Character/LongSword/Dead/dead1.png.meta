@@ -1,28 +1,34 @@
 fileFormatVersion: 2
-guid: ccb3d905ddf49aa4cb676e2bdaa947ad
+guid: 2bdc29216a2ee3448b9917870faabe91
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7352339073622421304
-    second: Title_0
+      213: -298624492823214948
+    second: dead1_0
   - first:
-      213: 578584420991164872
-    second: Title_1
+      213: -6438166216649936081
+    second: dead1_1
   - first:
-      213: -2586058674264470982
-    second: Title_2
+      213: -6055704028870333376
+    second: dead1_2
   - first:
-      213: -7455755055849233376
-    second: Title_3
+      213: 1644513432488817801
+    second: dead1_3
   - first:
-      213: -2920429353955323833
-    second: Title_4
+      213: 8881516740127760148
+    second: dead1_4
   - first:
-      213: -8183731707024800371
-    second: Title_5
+      213: -6340837470952302888
+    second: dead1_5
   - first:
-      213: -2698452132489872219
-    second: Title_6
+      213: 5043017452211031813
+    second: dead1_6
+  - first:
+      213: 1768889201882410362
+    second: dead1_7
+  - first:
+      213: -8297511783072717069
+    second: dead1_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -69,7 +75,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 140
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -131,23 +137,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Title_0
+      name: dead1_0
       rect:
         serializedVersion: 2
-        x: 132
-        y: 100
-        width: 1172
-        height: 843
+        x: 217
+        y: 190
+        width: 626
+        height: 588
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8c0d280219e37f990800000000000000
-      internalID: -7352339073622421304
+      spriteID: c948a002b921bdbf0800000000000000
+      internalID: -298624492823214948
       vertices: []
       indices: 
       edges: []
@@ -156,7 +162,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ce22bb60e072cf047a1b67f2ce31c1fd
+    spriteID: e96a68a646a26e74bbec0b166399f614
     internalID: 0
     vertices: []
     indices: 
@@ -166,13 +172,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Title_0: -7352339073622421304
-      Title_1: 578584420991164872
-      Title_2: -2586058674264470982
-      Title_3: -7455755055849233376
-      Title_4: -2920429353955323833
-      Title_5: -8183731707024800371
-      Title_6: -2698452132489872219
+      dead1_0: -298624492823214948
+      dead1_1: -6438166216649936081
+      dead1_2: -6055704028870333376
+      dead1_3: 1644513432488817801
+      dead1_4: 8881516740127760148
+      dead1_5: -6340837470952302888
+      dead1_6: 5043017452211031813
+      dead1_7: 1768889201882410362
+      dead1_8: -8297511783072717069
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

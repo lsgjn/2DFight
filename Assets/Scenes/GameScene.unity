@@ -291,7 +291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &210976561
 RectTransform:
   m_ObjectHideFlags: 0
@@ -567,7 +567,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 30}
-  m_SizeDelta: {x: 150, y: 60}
+  m_SizeDelta: {x: 200, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &361179543
 MonoBehaviour:
@@ -734,7 +734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &598300911
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2198,16 +2198,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198358989ebd0e4448e3a15cbb245a29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefabs: []
+  characterPrefabs:
+  - {fileID: 6141206272957383989, guid: b88f5d7d202770e40a505f73dd55d4f7, type: 3}
+  - {fileID: 5585320607548772170, guid: fc886dcf169019a479f563a496181c2d, type: 3}
   characterSprites:
   - {fileID: 4521283573590315582, guid: 5b9c1e162d94812478161780e2b8ef5c, type: 3}
   - {fileID: 2761873553539005563, guid: 3cfb552ebe6dd5541bb69a06a8141458, type: 3}
   characterNames:
-  - Knight
+  - LongSword
   - Katana
   characterDescriptions:
-  - sdsd
-  - sdsdsdsdsd
+  - use long sword. has a long reach but heavy
+  - use a Katana. has a high speed but short reach.
   p1Image: {fileID: 1132719003}
   p1Name: {fileID: 361179543}
   p1Description: {fileID: 1413333304}
@@ -2226,8 +2228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db05ea6871471684793ead61f04577ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p1Prefab: {fileID: 0}
-  p2Prefab: {fileID: 0}
+  p1Prefab: {fileID: 6141206272957383989, guid: b88f5d7d202770e40a505f73dd55d4f7, type: 3}
+  p2Prefab: {fileID: 6141206272957383989, guid: b88f5d7d202770e40a505f73dd55d4f7, type: 3}
 --- !u!1 &1413333302
 GameObject:
   m_ObjectHideFlags: 0
@@ -2342,7 +2344,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 30}
-  m_SizeDelta: {x: 150, y: 60}
+  m_SizeDelta: {x: 200, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1454201212
 MonoBehaviour:
@@ -2406,7 +2408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1832971988
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2885,7 +2887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2023876880
 RectTransform:
   m_ObjectHideFlags: 0
