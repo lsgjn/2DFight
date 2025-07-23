@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: fb659f962ca869443a1dfb45a7ef7c62
+guid: f51e62dad76ac244e9edfa08596fead1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2649847697073447219
-    second: Dead_0
+      213: -5603539421522682246
+    second: LRButton_0
+  - first:
+      213: -2035639868622252540
+    second: LRButton_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,40 +99,49 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Dead_0
+      name: LRButton_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 973
-        height: 1017
-      alignment: 9
-      pivot: {x: 0.4962536, y: 0.79456383}
+        width: 411
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 33123f4e07626c420800000000000000
-      internalID: 2649847697073447219
+      spriteID: a7e1e3fb59a3c32b0800000000000000
+      internalID: -5603539421522682246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LRButton_1
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 1
+        width: 386
+        height: 449
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 406d5242354ffb3e0800000000000000
+      internalID: -2035639868622252540
       vertices: []
       indices: 
       edges: []
@@ -138,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 363788dda7ddf4f4e8645883caf3185a
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Dead_0: 2649847697073447219
+      LRButton_0: -5603539421522682246
+      LRButton_1: -2035639868622252540
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
