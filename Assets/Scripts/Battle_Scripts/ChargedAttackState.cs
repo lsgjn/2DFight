@@ -31,7 +31,7 @@ public class ChargedAttackState : PlayerState
         // 일정 시간 후 히트박스 발동
         if (!hasActivatedHitbox && elapsed >= 0.15f)
         {
-            // controller.swordHitbox.Activate(isCharged: true); // 강한 히트박스 활성화
+            controller.swordHitbox.Activate(isCharged: true); // 강한 히트박스 활성화
             hasActivatedHitbox = true;
         }
 
