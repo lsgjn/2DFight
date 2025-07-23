@@ -5,21 +5,19 @@ public class TwoPlayerCamera : MonoBehaviour
     public Transform player1;
     public Transform player2;
 
-    [Header("Y Position Limit")]
-    public float minY = 2f; // Y 최소값
-
-
     [Header("Zoom Settings")]
-    public float minSize = 5f;       // 최소 줌 인 크기
-    public float maxSize = 25f;      // 최대 줌 아웃 크기
+    public float minSize = 15f;
+    public float maxSize = 50f;
     public float zoomSpeed = 5f;
 
     [Header("Follow Settings")]
     public float followSpeed = 5f;
-    public float yOffset = 2f;       // 캐릭터 발이 보이도록 카메라 높이 보정
+
+    [Tooltip("화면 높이를 낮추려면 음수로 설정")]
+    public float yOffset = -1.5f;
 
     [Header("Distance Zoom Factor")]
-    public float zoomFactor = 0.5f;  // 거리 대비 줌 비율 (조정 가능)
+    public float zoomFactor = 0.5f;
 
     private Camera cam;
 
@@ -32,19 +30,30 @@ public class TwoPlayerCamera : MonoBehaviour
     {
         if (player1 == null || player2 == null) return;
 
-        // ① 카메라 위치: 두 플레이어의 중간 + Y 오프셋
+        // 두 플레이어 중심 위치
         Vector3 middle = (player1.position + player2.position) / 2f;
-        Vector3 newPosition = new Vector3(middle.x, middle.y + yOffset, transform.position.z);
 
-        
-        // 📌 Y 위치 제한
-        float targetY = Mathf.Max(middle.y + yOffset, minY);
-        transform.position = Vector3.Lerp(transform.position, newPosition, followSpeed * Time.deltaTime);
-
-        // ② 카메라 줌: 두 캐릭터 거리 기반 계산 + factor 적용
+        // 거리 계산 (줌용)
         float distance = Vector2.Distance(player1.position, player2.position);
         float desiredSize = Mathf.Clamp(distance * zoomFactor, minSize, maxSize);
+
+        // 카메라 줌 부드럽게 적용
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, desiredSize, zoomSpeed * Time.deltaTime);
 
+        // 카메라가 모든 플레이어를 포함하도록 위치 조정
+        float camHeight = cam.orthographicSize;
+        float camWidth = camHeight * cam.aspect;
+
+        float minX = Mathf.Min(player1.position.x, player2.position.x);
+        float maxX = Mathf.Max(player1.position.x, player2.position.x);
+        float minY = Mathf.Min(player1.position.y, player2.position.y);
+        float maxY = Mathf.Max(player1.position.y, player2.position.y);
+
+        float targetX = (minX + maxX) / 2f;
+        float targetY = (minY + maxY) / 2f + yOffset;
+
+        // 실제로는 카메라 화면 내에 플레이어가 벗어나지 않게 중심을 보정
+        Vector3 newPosition = new Vector3(targetX, targetY, transform.position.z);
+        transform.position = Vector3.Lerp(transform.position, newPosition, followSpeed * Time.deltaTime);
     }
 }

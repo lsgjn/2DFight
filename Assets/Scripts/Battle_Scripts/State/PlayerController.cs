@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// 캐릭터의 상태 FSM과 입력, 무기 정보를 제어하는 핵심 컨트롤러
@@ -37,38 +38,41 @@ public class PlayerController : MonoBehaviour
     public bool IsGuarding { get; private set; }
     public void SetGuarding(bool value) => IsGuarding = value;
 
+    public GameObject deathEffectPrefab;
+
+
     void Awake()
     {
-         rb = GetComponent<Rigidbody2D>();
-    animator = GetComponent<SpriteAnimator>();
-    input = GetComponent<PlayerInputHandler>();
-    spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<SpriteAnimator>();
+        input = GetComponent<PlayerInputHandler>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
-    originalScale = transform.localScale;
+        originalScale = transform.localScale;
 
-    swordHitbox = transform.Find("SwordHitbox")?.GetComponent<Hitbox>();
-    if (swordHitbox == null)
-        Debug.LogError("SwordHitbox not found or Hitbox component missing!");
+        swordHitbox = transform.Find("SwordHitbox")?.GetComponent<Hitbox>();
+        if (swordHitbox == null)
+            Debug.LogError("SwordHitbox not found or Hitbox component missing!");
 
-    // 🔽 2. guardBox 자동 연결 (이름이 "GuardBox"인 자식 GameObject 찾아 연결)
-    guardBox = transform.Find("GuardBox")?.gameObject;
-    if (guardBox == null)
-        Debug.LogWarning("GuardBox not found under Player prefab!");
+        // 🔽 2. guardBox 자동 연결 (이름이 "GuardBox"인 자식 GameObject 찾아 연결)
+        guardBox = transform.Find("GuardBox")?.gameObject;
+        if (guardBox == null)
+            Debug.LogWarning("GuardBox not found under Player prefab!");
     }
 
     void Start()
     {
         TransitionTo(new IdleState(this));
 
-         // 체력 UI 연결
-    var health = GetComponentInChildren<HealthBarUI>();
-    if (health != null)
-        health.target = GetComponent<DamageReceiver>();
+        // 체력 UI 연결
+        var health = GetComponentInChildren<HealthBarUI>();
+        if (health != null)
+            health.target = GetComponent<DamageReceiver>();
 
-    // 가드 UI 연결
-    var guard = GetComponentInChildren<GuardGaugeUI>();
-    if (guard != null)
-        guard.target = GetComponent<GuardSystem>();
+        // 가드 UI 연결
+        var guard = GetComponentInChildren<GuardGaugeUI>();
+        if (guard != null)
+            guard.target = GetComponent<GuardSystem>();
     }
 
     void Update()
@@ -115,4 +119,29 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    
+    public void FlashRed()
+    {
+        StartCoroutine(FlashCoroutine());
+    }
+
+    private IEnumerator FlashCoroutine()
+    {
+        if (spriteRenderer == null) yield break;
+
+        Color originalColor = spriteRenderer.color;
+        Color hitColor = Color.red;
+
+        float flashDuration = 0.1f;
+        int flashCount = 2;
+
+        for (int i = 0; i < flashCount; i++)
+        {
+            spriteRenderer.color = hitColor;
+            yield return new WaitForSeconds(flashDuration);
+            spriteRenderer.color = originalColor;
+            yield return new WaitForSeconds(flashDuration);
+        }
+    }
+
 }

@@ -1,3 +1,4 @@
+using BBUnity.Actions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,12 +7,15 @@ public class CharacterSelector : MonoBehaviour
 {
     public GameObject[] characterPrefabs; // 프리팹 배열 추가
 
+    public GameObject StartPanel;
+
     // === 선택 정보 ===
     private int p1Index = 0;
     private int p2Index = 0;
 
     private bool p1Confirmed = false;
     private bool p2Confirmed = false;
+    
 
     // === 캐릭터 데이터 ===
     public Sprite[] characterSprites;
@@ -58,7 +62,7 @@ public class CharacterSelector : MonoBehaviour
         {
             CharacterSelectData.Instance.p1Prefab = characterPrefabs[p1Index];
             CharacterSelectData.Instance.p2Prefab = characterPrefabs[p2Index];
-
+            StartToPanel();
             //SceneManager.LoadScene("BattleScene");
         }
     }
@@ -81,5 +85,10 @@ public class CharacterSelector : MonoBehaviour
             p2Name.text = characterNames[idx];
             p2Description.text = characterDescriptions[idx];
         }
+    }
+
+    void StartToPanel()
+    {
+        StartPanel.SetActive(false);
     }
 }

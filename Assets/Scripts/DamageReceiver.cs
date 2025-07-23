@@ -24,12 +24,22 @@ public class DamageReceiver : MonoBehaviour
         currentHP--;
         Debug.Log(gameObject.name + " 피격! 남은 체력: " + currentHP);
 
+        // 🔴 피격 시 깜빡이게
+        controller.FlashRed();
+
+        if (currentHP <= 0)
+        {
+            controller.TransitionTo(new DeathState(controller));
+            return;
+        }
+
         Vector2 knockDir = (transform.position.x > attacker.transform.position.x) ? Vector2.right : Vector2.left;
         controller.rb.linearVelocity = knockDir * knockbackForce;
 
         isStunned = true;
         stunTimer = stunDuration;
     }
+
 
     public void ApplyStun()
     {

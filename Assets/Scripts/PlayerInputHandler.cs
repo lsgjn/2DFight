@@ -13,6 +13,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool GuardPressed { get; private set; }
     public bool AttackPressed { get; private set; }
     public bool DodgePressed { get; private set; }
+    public bool AttackHeld { get; private set; }
 
     public void ReadInput()
     {
@@ -23,8 +24,8 @@ public class PlayerInputHandler : MonoBehaviour
                 Input.GetKey(KeyCode.D) ? 1 : Input.GetKey(KeyCode.A) ? -1 : 0,
                 Input.GetKey(KeyCode.W) ? 1 : 0
             );
-            JumpPressed   = Input.GetKeyDown(KeyCode.W);
-            GuardPressed  = Input.GetKey(KeyCode.G);
+            JumpPressed = Input.GetKeyDown(KeyCode.W);
+            GuardPressed = Input.GetKey(KeyCode.G);
             AttackPressed = Input.GetKeyDown(KeyCode.F);
         }
         else if (playerId == PlayerId.Player2)
@@ -34,8 +35,8 @@ public class PlayerInputHandler : MonoBehaviour
                 Input.GetKey(KeyCode.RightArrow) ? 1 : Input.GetKey(KeyCode.LeftArrow) ? -1 : 0,
                 Input.GetKey(KeyCode.UpArrow) ? 1 : 0
             );
-            JumpPressed   = Input.GetKeyDown(KeyCode.UpArrow);
-            GuardPressed  = Input.GetKey(KeyCode.Keypad2);
+            JumpPressed = Input.GetKeyDown(KeyCode.UpArrow);
+            GuardPressed = Input.GetKey(KeyCode.Keypad2);
             AttackPressed = Input.GetKeyDown(KeyCode.Keypad1);
         }
     }

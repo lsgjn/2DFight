@@ -21,7 +21,15 @@ public class BackButton : MonoBehaviour
 
     public void OnGameStartGButtonClicked()
     {
-        // 게임 시작 버튼 클릭 시 호출되는 메서드
+        // 🔒 P1 또는 P2 프리팹이 비어 있으면 시작 금지
+        if (CharacterSelectData.Instance == null || 
+            CharacterSelectData.Instance.p1Prefab == null || 
+            CharacterSelectData.Instance.p2Prefab == null)
+        {
+            Debug.LogWarning("캐릭터가 선택되지 않았습니다. 게임을 시작할 수 없습니다.");
+            return;
+        }
+
         LoadScene("Battle");
     }
     

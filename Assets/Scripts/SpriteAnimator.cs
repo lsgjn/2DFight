@@ -12,7 +12,8 @@ public class SpriteAnimator : MonoBehaviour
         Attack,
         Guard,
         // Dodge,
-        Death
+        Dead,
+        ChargedAttack
     }
 
     private Animator animator;

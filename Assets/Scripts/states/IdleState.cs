@@ -30,11 +30,14 @@ public class IdleState : PlayerState
 
         else if (input.GuardPressed)
             controller.TransitionTo(new GuardState(controller));
+        
+        else if (input.AttackHeld)
+            controller.TransitionTo(new ChargingState(controller));
+
     }
 
     public override void Update()
     {
-        
         controller.FaceDirection(controller.input.InputDirection.x);
     }
 }
