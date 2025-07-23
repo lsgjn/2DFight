@@ -14,7 +14,7 @@ public class HealthBarUI : MonoBehaviour
     {
         if (target == null || fillBar == null) return;
 
-        int currentHP = Mathf.Clamp(target.GetCurrentHP(), 0, target.maxHP);
+        float currentHP = Mathf.Clamp(target.GetCurrentHP(), 0, target.maxHP);
         float ratio = (float)currentHP / target.maxHP;
 
         fillBar.fillAmount = ratio;

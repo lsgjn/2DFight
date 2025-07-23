@@ -1,19 +1,32 @@
+// ✅ Hurtbox.cs
 using UnityEngine;
 
-/// <summary>
-/// 피격 판정을 위한 헐트박스 - 피격 시 데미지 처리 호출
-/// </summary>
-[RequireComponent(typeof(BoxCollider2D))]
 public class Hurtbox : MonoBehaviour
 {
     public void ReceiveHit(GameObject attacker)
     {
-        Debug.Log("피격됨 → " + gameObject.name + " by " + attacker.name);
+        Debug.Log($"[Hurtbox] 피격: {gameObject.name} <- {attacker.name}");
 
         var damageReceiver = GetComponentInParent<DamageReceiver>();
-        if (damageReceiver != null)
+        var guard = GetComponentInParent<GuardSystem>();
+        var parry = GetComponentInParent<ParrySystem>();
+        var attackerController = attacker.GetComponent<PlayerController>();
+
+        float reduction = 1f;
+
+        // ✅ 1. 패링 상태라면 → 데미지 0
+        if (parry != null && parry.IsParryActive() && attackerController != null && attackerController.IsParryable)
         {
-            damageReceiver.ApplyDamage(attacker);
+            reduction = 0f;
+            Debug.Log("🛡️ 패링 성공 - 데미지 무효");
         }
+        // ✅ 2. 가드 상태라면 → 데미지 1/4
+        else if (guard != null && guard.IsGuarding())
+        {
+            reduction = 0.25f;
+            Debug.Log("🛡️ 가드 상태 - 데미지 1/4 적용");
+        }
+
+        damageReceiver?.ApplyDamage(attacker, reduction);
     }
 }

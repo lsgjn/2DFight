@@ -69,10 +69,10 @@ public class PlayerController : MonoBehaviour
         if (health != null)
             health.target = GetComponent<DamageReceiver>();
 
-        // 가드 UI 연결
-        var guard = GetComponentInChildren<GuardGaugeUI>();
-        if (guard != null)
-            guard.target = GetComponent<GuardSystem>();
+        // // 가드 UI 연결
+        // var guard = GetComponentInChildren<GuardGaugeUI>();
+        // if (guard != null)
+        //     guard.target = GetComponent<GuardSystem>();
     }
 
     void Update()
@@ -122,26 +122,26 @@ public class PlayerController : MonoBehaviour
     
     public void FlashRed()
     {
-        StartCoroutine(FlashCoroutine());
+        if (spriteRenderer == null) return;
+
+        // 가드 중이면 흰색, 아니면 빨간색
+        Color flashColor = IsGuarding ? Color.gray : Color.red;
+        StartCoroutine(FlashCoroutine(flashColor));
     }
 
-    private IEnumerator FlashCoroutine()
+    private IEnumerator FlashCoroutine(Color flashColor)
+{
+    Color originalColor = spriteRenderer.color;
+    float flashDuration = 0.1f;
+    int flashCount = 2;
+
+    for (int i = 0; i < flashCount; i++)
     {
-        if (spriteRenderer == null) yield break;
-
-        Color originalColor = spriteRenderer.color;
-        Color hitColor = Color.red;
-
-        float flashDuration = 0.1f;
-        int flashCount = 2;
-
-        for (int i = 0; i < flashCount; i++)
-        {
-            spriteRenderer.color = hitColor;
-            yield return new WaitForSeconds(flashDuration);
-            spriteRenderer.color = originalColor;
-            yield return new WaitForSeconds(flashDuration);
-        }
+        spriteRenderer.color = flashColor;
+        yield return new WaitForSeconds(flashDuration);
+        spriteRenderer.color = originalColor;
+        yield return new WaitForSeconds(flashDuration);
     }
+}
 
 }

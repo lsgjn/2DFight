@@ -1,36 +1,34 @@
+// ✅ GuardSystem.cs
 using UnityEngine;
 
 public class GuardSystem : MonoBehaviour
 {
-    public int maxGuard = 90;
-    public int currentGuard = 90;
-    public float rechargeInterval = 5f;
-    public int rechargeAmount = 30;
+    private PlayerInputHandler input;
+    private ParrySystem parry;
 
-    private float rechargeTimer;
+    private bool isGuarding = false;
+    public bool IsGuarding() => isGuarding;
 
-    void Start()
+    private void Awake()
     {
-        currentGuard = maxGuard;
+        input = GetComponent<PlayerInputHandler>();
+        parry = GetComponent<ParrySystem>();
     }
 
-    void Update()
+    private void Update()
     {
-        if (currentGuard < maxGuard)
-        {
-            rechargeTimer += Time.deltaTime;
-            if (rechargeTimer >= rechargeInterval)
-            {
-                currentGuard = Mathf.Min(currentGuard + rechargeAmount, maxGuard);
-                rechargeTimer = 0f;
-            }
-        }
+        HandleGuardInput();
     }
 
-    public float GetReductionRatio()
+    private void HandleGuardInput()
     {
-        return currentGuard > 0 ? 0.3f : 1.0f;  // 30%로 경감
-    }
+        if (input == null) return;
 
-    public int GetCurrentGuard() => currentGuard;
+        // 가드 키를 누른 순간 → 패링 발동
+        if (input.GuardPressed)
+            parry?.ActivateParry();
+
+        // 가드 키를 누르고 있는 동안 → 가드 상태 유지
+        isGuarding = input.GuardHeld;
+    }
 }
