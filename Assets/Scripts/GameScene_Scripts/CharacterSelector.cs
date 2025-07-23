@@ -59,7 +59,7 @@ public class CharacterSelector : MonoBehaviour
             CharacterSelectData.Instance.p1Prefab = characterPrefabs[p1Index];
             CharacterSelectData.Instance.p2Prefab = characterPrefabs[p2Index];
 
-            //UnityEngine.SceneManagement.SceneManager.LoadScene("BattleScene");
+            //SceneManager.LoadScene("BattleScene");
         }
     }
 

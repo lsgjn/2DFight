@@ -14,11 +14,11 @@ public class Hitbox : MonoBehaviour
     }
 
     public void Activate()
-{
-    col.enabled = true;
-    anim.Play("AttackHitbox");
-    Invoke(nameof(Disable), 0.3f); // 공격 판정 지속 시간 (ex. 0.3초)
-}
+    {
+        col.enabled = true;
+        anim.Play("AttackHitbox");
+        Invoke(nameof(Disable), 0.3f); // 공격 판정 지속 시간 (ex. 0.3초)
+    }
 
     private void Disable()
     {
