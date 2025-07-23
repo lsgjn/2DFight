@@ -1,21 +1,19 @@
-using BBUnity.Actions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CharacterSelector : MonoBehaviour
 {
-    public GameObject[] characterPrefabs; // 프리팹 배열 추가
+    public GameObject[] characterPrefabs;
 
     public GameObject StartPanel;
 
-    // === 선택 정보 ===
+    // === 선택 인덱스 ===
     private int p1Index = 0;
     private int p2Index = 0;
 
     private bool p1Confirmed = false;
     private bool p2Confirmed = false;
-    
 
     // === 캐릭터 데이터 ===
     public Sprite[] characterSprites;
@@ -41,29 +39,52 @@ public class CharacterSelector : MonoBehaviour
 
     void Update()
     {
-        // --- P1 입력 (A/D/W) ---
+        // --- P1 입력 (A/D/Enter) ---
         if (!p1Confirmed)
         {
-            if (Input.GetKeyDown(KeyCode.A)) { p1Index = Prev(p1Index); UpdateUI(1); }
-            if (Input.GetKeyDown(KeyCode.D)) { p1Index = Next(p1Index); UpdateUI(1); }
-            if (Input.GetKeyDown(KeyCode.Return)) { p1Confirmed = true; }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                p1Index = Prev(p1Index);
+                UpdateUI(1);
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                p1Index = Next(p1Index);
+                UpdateUI(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                p1Confirmed = true;
+                p1Name.color = Color.green; // ✅ 이름 초록색으로 변경
+            }
         }
 
-        // --- P2 입력 (←/→/Enter) ---
+        // --- P2 입력 (←/→/KeypadEnter) ---
         if (!p2Confirmed)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow)) { p2Index = Prev(p2Index); UpdateUI(2); }
-            if (Input.GetKeyDown(KeyCode.RightArrow)) { p2Index = Next(p2Index); UpdateUI(2); }
-            if (Input.GetKeyDown(KeyCode.KeypadEnter)) { p2Confirmed = true; }
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                p2Index = Prev(p2Index);
+                UpdateUI(2);
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                p2Index = Next(p2Index);
+                UpdateUI(2);
+            }
+            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                p2Confirmed = true;
+                p2Name.color = Color.green; // ✅ 이름 초록색으로 변경
+            }
         }
 
-        // --- 둘 다 선택했을 때 게임 시작 ---
+        // --- 둘 다 선택되면 StartPanel 종료 ---
         if (p1Confirmed && p2Confirmed)
         {
             CharacterSelectData.Instance.p1Prefab = characterPrefabs[p1Index];
             CharacterSelectData.Instance.p2Prefab = characterPrefabs[p2Index];
             StartToPanel();
-            //SceneManager.LoadScene("BattleScene");
         }
     }
 
@@ -73,6 +94,7 @@ public class CharacterSelector : MonoBehaviour
     void UpdateUI(int player)
     {
         int idx = (player == 1) ? p1Index : p2Index;
+
         if (player == 1)
         {
             p1Image.sprite = characterSprites[idx];
