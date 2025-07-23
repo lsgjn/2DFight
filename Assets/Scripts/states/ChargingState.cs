@@ -27,7 +27,7 @@ public class ChargingState : PlayerState
         }
 
         // 키를 뗐을 경우
-        if (!controller.input.AttackHeld)
+        if (!controller.input.GuardHeld)
         {
             if (elapsed >= chargeTime)
                 controller.TransitionTo(new ChargedAttackState(controller));

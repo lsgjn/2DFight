@@ -36,10 +36,13 @@ public class GuardState : PlayerState
         disabledColliders = list.ToArray();
 
         // ✅ 가드박스는 활성화
-        if (controller.guardBox != null)
-            controller.guardBox.SetActive(true);
+        // if (controller.guardBox != null)
+        //     controller.guardBox.SetActive(true);
 
-        controller.SetGuarding(true);
+        // var parry = controller.GetComponent<ParrySystem>();
+        // parry?.ActivateParry();
+
+        // controller.SetGuarding(true);
     }
 
     public override void Exit()
@@ -47,13 +50,13 @@ public class GuardState : PlayerState
         // ✅ 방어 상태에서 비활성화했던 것만 다시 복구
         foreach (var col in disabledColliders)
         {
-            if (col != null)
+            if (col.GetComponent<Hitbox>())
                 col.enabled = true;
         }
 
-        // ✅ 가드박스는 다시 비활성화
-        if (controller.guardBox != null)
-            controller.guardBox.SetActive(false);
+        // // ✅ 가드박스는 다시 비활성화
+        // if (controller.guardBox != null)
+        //     controller.guardBox.SetActive(false);
 
         controller.SetGuarding(false);
     }

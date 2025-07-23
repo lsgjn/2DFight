@@ -1,7 +1,7 @@
 using UnityEngine;
 public class DamageReceiver : MonoBehaviour
 {
-    public int maxHP = 3;
+    public int maxHP = 12;
     private int currentHP;
 
     public float knockbackForce = 5f;
@@ -17,18 +17,24 @@ public class DamageReceiver : MonoBehaviour
         controller = GetComponent<PlayerController>();
     }
 
-    public void ApplyDamage(GameObject attacker)
-    {
-        ApplyDamage(attacker, 1.0f);
-    }
+    // public void ApplyDamage(GameObject attacker)
+    // {
+    //     ApplyDamage(attacker, 1.0f);
+    // }
 
-    public void ApplyDamage(GameObject attacker, float reduction)
+    public void ApplyDamage(GameObject attacker, float reductionRatio)
     {
         if (isStunned) return;
+        int baseDamage = 4;
 
-        int baseDamage = 1;
-        int damage = Mathf.Max(1, Mathf.CeilToInt(baseDamage * reduction));
+        int damage = Mathf.CeilToInt(baseDamage * reductionRatio);
         currentHP -= damage;
+        Debug.Log($"❤️ 데미지 {damage} 적용됨, 남은 체력: {currentHP}");
+        
+
+        // int baseDamage = 1;
+        // int damage = Mathf.Max(1, Mathf.CeilToInt(baseDamage * reduction));
+        // currentHP -= damage;
 
         Debug.Log($"{gameObject.name} 피격! 남은 체력: {currentHP} (-{damage})");
 

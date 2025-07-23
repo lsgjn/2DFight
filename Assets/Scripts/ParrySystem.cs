@@ -1,38 +1,41 @@
+// ✅ ParrySystem.cs
 using UnityEngine;
 
-/// <summary>
-/// 공격 중 자동 발동형 패링 시스템
-/// </summary>
 public class ParrySystem : MonoBehaviour
 {
-    public float parryWindow = 0.12f;      // 약 1.5~2프레임 (13fps 기준)
-    public float cooldown = 0.5f;          // 재사용 대기시간
-
-    private float timer = 0f;
-    private bool active = false;
+    private bool isParryActive = false;
+    private float parryTimer = 0f;
     private float cooldownTimer = 0f;
+
+    public float parryWindow = 1f;   // 발동 시간
+    public float cooldown = 5f;      // 쿨타임
+
+    public bool IsParryActive() => isParryActive;
 
     public void ActivateParry()
     {
-        if (cooldownTimer > 0f) return;
-
-        active = true;
-        timer = parryWindow;
-        cooldownTimer = cooldown;
+        if (cooldownTimer <= 0f)
+        {
+            isParryActive = true;
+            parryTimer = parryWindow;
+            cooldownTimer = cooldown;
+            Debug.Log("🛡️ 패링 발동");
+        }
     }
 
-    public bool IsParryActive() => active;
-
-    void Update()
+    private void Update()
     {
+        if (isParryActive)
+        {
+            parryTimer -= Time.deltaTime;
+            if (parryTimer <= 0f)
+            {
+                isParryActive = false;
+                Debug.Log("패링 종료");
+            }
+        }
+
         if (cooldownTimer > 0f)
             cooldownTimer -= Time.deltaTime;
-
-        if (active)
-        {
-            timer -= Time.deltaTime;
-            if (timer <= 0f)
-                active = false;
-        }
     }
 }
