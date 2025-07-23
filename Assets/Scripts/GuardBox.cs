@@ -10,18 +10,18 @@ public class GuardBox : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other)
+{
+    if (other.CompareTag("Hitbox"))
     {
-        if (other.CompareTag("Hitbox"))
+        var attacker = other.GetComponentInParent<PlayerController>();
+        var defender = GetComponentInParent<PlayerController>();
+
+        if (attacker != null && defender != null)
         {
-            if (guardSystem.ConsumeGuard())
-            {
-                // 가드 성공 이펙트/사운드
-                Debug.Log("Guard successful!");
-            }
-            else
-            {
-                // 가드 실패 → 피해 입기 등 처리 가능
-            }
+            // ✅ 이 한 줄만 실행
+            CombatResolver.Instance.ResolveHit(attacker, defender);
         }
     }
+}
+
 }

@@ -25,11 +25,12 @@ public class GuardState : PlayerState
 
         foreach (var col in allColliders)
         {
-            if (col.GetComponent<Hitbox>() || col.GetComponent<Hurtbox>())
+            if (col.GetComponent<Hitbox>())  // 히트박스만 꺼준다
             {
                 col.enabled = false;
-                list.Add(col);
             }
+
+
         }
 
         disabledColliders = list.ToArray();

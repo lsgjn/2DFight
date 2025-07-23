@@ -1,17 +1,15 @@
 using UnityEngine;
 
-/// <summary>
-/// 방어 게이지 및 자동 회복 시스템
-/// </summary>
 public class GuardSystem : MonoBehaviour
 {
-    public int maxGuard = 3;
+    public int maxGuard = 90;
+    public int currentGuard = 90;
     public float rechargeInterval = 5f;
+    public int rechargeAmount = 30;
 
-    private int currentGuard;
-    private float rechargeTimer = 0f;
+    private float rechargeTimer;
 
-    void Awake()
+    void Start()
     {
         currentGuard = maxGuard;
     }
@@ -23,30 +21,16 @@ public class GuardSystem : MonoBehaviour
             rechargeTimer += Time.deltaTime;
             if (rechargeTimer >= rechargeInterval)
             {
+                currentGuard = Mathf.Min(currentGuard + rechargeAmount, maxGuard);
                 rechargeTimer = 0f;
-                currentGuard++;
             }
         }
     }
 
-    public bool ConsumeGuard()
+    public float GetReductionRatio()
     {
-        if (currentGuard > 0)
-        {
-            currentGuard--;
-            rechargeTimer = 0f;
-            return true;
-        }
-        return false;
+        return currentGuard > 0 ? 0.3f : 1.0f;  // 30%로 경감
     }
 
-    public int GetCurrentGuard()
-    {
-        return currentGuard;
-    }
-
-    public bool IsGuardAvailable()
-    {
-        return currentGuard > 0;
-    }
+    public int GetCurrentGuard() => currentGuard;
 }

@@ -1,4 +1,6 @@
+// ✅ Rewritten: CombatResolver.cs
 using UnityEngine;
+
 public class CombatResolver : MonoBehaviour
 {
     public static CombatResolver Instance;
@@ -11,35 +13,49 @@ public class CombatResolver : MonoBehaviour
 
     public void ResolveHit(PlayerController attacker, PlayerController defender)
     {
-        if (defender == null || attacker == null) return;
+        if (attacker == null || defender == null) return;
 
-        // 1️⃣ 가드 판정
         var guard = defender.GetComponent<GuardSystem>();
-        if (defender.IsGuarding && guard != null && guard.IsGuardAvailable())
+        var damageReceiver = defender.GetComponent<DamageReceiver>();
+
+        // 1. 가드 경감 처리
+        if (defender.IsGuarding && guard != null)
         {
-            guard.ConsumeGuard();
+            float reduction = guard.GetReductionRatio();
+            damageReceiver?.ApplyDamage(attacker.gameObject, reduction);
 
-            // 가드 이펙트 출력
-            GameObject effect = Object.Instantiate(Resources.Load<GameObject>("GuardEffect"),
+            GameObject effect = Instantiate(Resources.Load<GameObject>("GuardEffect"),
                 defender.transform.position, Quaternion.identity);
-            Object.Destroy(effect, 1f);
+            Destroy(effect, 1f);
 
-            Debug.Log("🛡️ 가드 성공! 게이지 감소");
+            Debug.Log($"🛡️ 가드 경감 적용! 데미지 x{reduction}");
             return;
         }
+        else
+        {
+            Debug.LogWarning("❌ GuardEffect prefab을 찾을 수 없습니다. Resources 폴더에 GuardEffect.prefab 파일을 넣어주세요.");
+        }
 
-        // 2️⃣ 패링 판정
+
+        // 2. 패링 판정
         var parry = defender.GetComponent<ParrySystem>();
         if (parry != null && parry.IsParryActive() && attacker.IsParryable)
         {
+            var attackerRB = attacker.GetComponent<Rigidbody2D>();
+            if (attackerRB != null)
+            {
+                Vector2 knockDir = (attacker.transform.position.x < defender.transform.position.x)
+                    ? Vector2.left : Vector2.right;
+                attackerRB.linearVelocity = knockDir * 5f;
+            }
+
             attacker.GetComponent<DamageReceiver>()?.ApplyStun();
-            Debug.Log("⚡ 패링 성공! 공격자 스턴");
+            Debug.Log($"✅ [패링 성공] {defender.name} → {attacker.name}");
             return;
         }
 
-        // 3️⃣ 일반 데미지 처리
-        defender.GetComponent<DamageReceiver>()?.ApplyDamage(attacker.gameObject);
-        Debug.Log("💥 데미지 적용 완료");
+        // 3. 일반 데미지
+        damageReceiver?.ApplyDamage(attacker.gameObject);
+        Debug.Log("💥 일반 데미지 적용");
     }
-
 }

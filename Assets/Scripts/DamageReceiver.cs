@@ -19,24 +19,38 @@ public class DamageReceiver : MonoBehaviour
 
     public void ApplyDamage(GameObject attacker)
     {
+        ApplyDamage(attacker, 1.0f);
+    }
+
+    public void ApplyDamage(GameObject attacker, float reduction)
+    {
         if (isStunned) return;
 
-        currentHP--;
-        Debug.Log(gameObject.name + " 피격! 남은 체력: " + currentHP);
+        int baseDamage = 1;
+        int damage = Mathf.Max(1, Mathf.CeilToInt(baseDamage * reduction));
+        currentHP -= damage;
+
+        Debug.Log($"{gameObject.name} 피격! 남은 체력: {currentHP} (-{damage})");
 
         Vector2 knockDir = (transform.position.x > attacker.transform.position.x) ? Vector2.right : Vector2.left;
         controller.rb.linearVelocity = knockDir * knockbackForce;
 
         isStunned = true;
         stunTimer = stunDuration;
+
+        if (IsDead())
+        {
+            // controller.TransitionTo(new DeathState(controller)); // 주석 처리됨
+        }
     }
 
     public void ApplyStun()
     {
-        Debug.Log(gameObject.name + " 패링에 의해 스턴!");
         controller.rb.linearVelocity = Vector2.zero;
         isStunned = true;
         stunTimer = stunDuration;
+
+        Debug.Log($"{gameObject.name} 스턴!");
     }
 
     void Update()
@@ -51,13 +65,6 @@ public class DamageReceiver : MonoBehaviour
         }
     }
 
-    public bool IsDead()
-    {
-        return currentHP <= 0;
-    }
-
-    public int GetCurrentHP()
-    {
-        return currentHP;
-    }
+    public bool IsDead() => currentHP <= 0;
+    public int GetCurrentHP() => currentHP;
 }
