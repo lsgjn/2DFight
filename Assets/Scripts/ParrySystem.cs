@@ -1,46 +1,38 @@
 using UnityEngine;
 
 /// <summary>
-/// 타이밍 기반 패링 시스템 - 성공 시 상대 스턴
+/// 공격 중 자동 발동형 패링 시스템
 /// </summary>
 public class ParrySystem : MonoBehaviour
 {
-    public float parryWindow = 0.2f; // 패링 타이밍 허용 범위
-    public float parryCooldown = 1.0f; // 실패 후 재사용 대기
+    public float parryWindow = 0.12f;      // 약 1.5~2프레임 (13fps 기준)
+    public float cooldown = 0.5f;          // 재사용 대기시간
 
-    private float parryTimer = 0f;
-    private bool parryActive = false;
+    private float timer = 0f;
+    private bool active = false;
     private float cooldownTimer = 0f;
 
-    public void TryParry()
+    public void ActivateParry()
     {
         if (cooldownTimer > 0f) return;
 
-        parryActive = true;
-        parryTimer = parryWindow;
-        cooldownTimer = parryCooldown;
+        active = true;
+        timer = parryWindow;
+        cooldownTimer = cooldown;
     }
+
+    public bool IsParryActive() => active;
 
     void Update()
     {
         if (cooldownTimer > 0f)
             cooldownTimer -= Time.deltaTime;
 
-        if (parryActive)
+        if (active)
         {
-            parryTimer -= Time.deltaTime;
-            if (parryTimer <= 0f)
-                parryActive = false;
+            timer -= Time.deltaTime;
+            if (timer <= 0f)
+                active = false;
         }
-    }
-
-    public bool IsParryActive()
-    {
-        return parryActive;
-    }
-
-    public bool CanParry()
-    {
-        return cooldownTimer <= 0f;
     }
 }

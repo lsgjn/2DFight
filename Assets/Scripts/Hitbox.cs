@@ -1,4 +1,5 @@
 using UnityEngine;
+
 [RequireComponent(typeof(BoxCollider2D), typeof(Animator))]
 public class Hitbox : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class Hitbox : MonoBehaviour
     {
         col.enabled = true;
         anim.Play("AttackHitbox");
-        Invoke(nameof(Disable), 0.3f); // 공격 판정 지속 시간 (ex. 0.3초)
+        Invoke(nameof(Disable), 0.3f); // 공격 판정 지속 시간
     }
 
     private void Disable()
@@ -27,7 +28,33 @@ public class Hitbox : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Hitbox 충돌 발생: " + other.name);
+         Debug.Log("🔥 OnTriggerEnter2D 호출됨: " + other.name);
+        // 공격 ↔ 공격 충돌
+        if (other.TryGetComponent(out Hitbox enemyHitbox))
+        {
+            var attacker = GetComponentInParent<PlayerController>();
+            var defender = enemyHitbox.GetComponentInParent<PlayerController>();
+
+            if (attacker != null && defender != null)
+            {
+                var parry = defender.GetComponent<ParrySystem>();
+                if (parry != null && parry.IsParryActive() && attacker.IsParryable)
+                {
+                    attacker.GetComponent<DamageReceiver>()?.ApplyStun();
+                    attacker.rb.linearVelocity = (attacker.transform.position.x < defender.transform.position.x)
+                        ? Vector2.left * 5f : Vector2.right * 5f;
+
+                    Debug.Log("⚡ [패링 성공] 공격 간 충돌로 발동!");
+                    ShowParryMessage(defender);
+                    return;
+                }
+
+                Debug.Log("⚔️ [공격 상쇄] 패링 실패 또는 조건 미충족");
+                return;
+            }
+        }
+
+        // 공격 ↔ 헐트박스 충돌 처리
         if (other.TryGetComponent(out Hurtbox hurtbox))
         {
             var defender = hurtbox.GetComponentInParent<PlayerController>();
@@ -37,5 +64,10 @@ public class Hitbox : MonoBehaviour
                 CombatResolver.Instance.ResolveHit(attacker, defender);
             }
         }
+    }
+
+    private void ShowParryMessage(PlayerController player)
+    {
+        Debug.Log($"✅ {player.playerId} 패링 성공!");
     }
 }
