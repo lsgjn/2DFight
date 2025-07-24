@@ -120,28 +120,33 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    public void FlashRed()
+    public void FlashRed(bool isParry = false)
     {
         if (spriteRenderer == null) return;
 
-        // 가드 중이면 흰색, 아니면 빨간색
-        Color flashColor = IsGuarding ? Color.gray : Color.red;
+        Color flashColor;
+        if (isParry)
+            flashColor = new Color32(204,204,204,255); // 원하는 RGB 색상
+        else
+            flashColor = IsGuarding ? Color.gray : Color.red;
+
         StartCoroutine(FlashCoroutine(flashColor));
     }
 
     private IEnumerator FlashCoroutine(Color flashColor)
-{
-    Color originalColor = spriteRenderer.color;
-    float flashDuration = 0.1f;
-    int flashCount = 2;
-
-    for (int i = 0; i < flashCount; i++)
     {
-        spriteRenderer.color = flashColor;
-        yield return new WaitForSeconds(flashDuration);
+        Color originalColor = spriteRenderer.color;
+        float flashDuration = 0.1f;
+        int flashCount = 2;
+
+        for (int i = 0; i < flashCount; i++)
+        {
+            spriteRenderer.color = flashColor;
+            yield return new WaitForSeconds(flashDuration);
+            spriteRenderer.color = originalColor;
+            yield return new WaitForSeconds(flashDuration);
+        }
         spriteRenderer.color = originalColor;
-        yield return new WaitForSeconds(flashDuration);
     }
-}
 
 }

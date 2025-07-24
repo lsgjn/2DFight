@@ -42,7 +42,7 @@ public class GuardState : PlayerState
         // var parry = controller.GetComponent<ParrySystem>();
         // parry?.ActivateParry();
 
-        // controller.SetGuarding(true);
+        controller.SetGuarding(true);
     }
 
     public override void Exit()

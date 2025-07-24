@@ -9,6 +9,8 @@ public class GuardSystem : MonoBehaviour
     private bool isGuarding = false;
     public bool IsGuarding() => isGuarding;
 
+    public int parri = 0;
+
     private void Awake()
     {
         input = GetComponent<PlayerInputHandler>();
@@ -25,8 +27,10 @@ public class GuardSystem : MonoBehaviour
         if (input == null) return;
 
         // 가드 키를 누른 순간 → 패링 발동
-        if (input.GuardPressed)
-            parry?.ActivateParry();
+        if (input.GuardPressed && parry != null)
+        {
+            parry.ActivateParry();
+        }
 
         // 가드 키를 누르고 있는 동안 → 가드 상태 유지
         isGuarding = input.GuardHeld;

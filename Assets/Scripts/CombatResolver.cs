@@ -85,6 +85,6 @@ public class CombatResolver : MonoBehaviour
         Debug.Log($"💥 Hit 발생: {attacker.name} -> {defender.name}");
 
         // 시각 효과만 담당
-        defender.FlashRed();
+        //defender.FlashRed();
     }
 }

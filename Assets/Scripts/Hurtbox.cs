@@ -15,10 +15,13 @@ public class Hurtbox : MonoBehaviour
         float reduction = 1f;
 
         // ✅ 1. 패링 상태라면 → 데미지 0
-        if (parry != null && parry.IsParryActive() && attackerController != null && attackerController.IsParryable)
+        if (parry != null && parry.IsParryActive()) // && attackerController != null && attackerController.IsParryable
         {
             reduction = 0f;
             Debug.Log("🛡️ 패링 성공 - 데미지 무효");
+            parry.OnParrySuccess();
+            var playerController = GetComponentInParent<PlayerController>();
+            playerController?.FlashRed(true);
         }
         // ✅ 2. 가드 상태라면 → 데미지 1/4
         else if (guard != null && guard.IsGuarding())

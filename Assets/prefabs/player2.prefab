@@ -537,6 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18bc8271715ebd4cb2869b61b67bbb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parri: 0
 --- !u!1 &5059009996674511874
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +678,7 @@ GameObject:
   - component: {fileID: 3765255194555392689}
   - component: {fileID: 3168249122450530831}
   - component: {fileID: 3883505845821393047}
+  - component: {fileID: 6105071584088417709}
   m_Layer: 0
   m_Name: player2
   m_TagString: Player
@@ -790,7 +792,7 @@ MonoBehaviour:
   playerId: 0
   weaponType: 0
   moveSpeed: 6
-  jumpForce: 7
+  jumpForce: 10
   dodgeSpeed: 8
   attackSpeed: 1
   rb: {fileID: 0}
@@ -919,6 +921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18bc8271715ebd4cb2869b61b67bbb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parri: 0
 --- !u!114 &3883505845821393047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -932,6 +935,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerId: 0
+--- !u!114 &6105071584088417709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5585320607548772170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b53edbb2cc9a5745851d5fed9810865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parryWindow: 0.2
+  cooldown: 0
 --- !u!1 &6769279533422083059
 GameObject:
   m_ObjectHideFlags: 0

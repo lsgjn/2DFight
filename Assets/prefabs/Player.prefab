@@ -527,6 +527,7 @@ GameObject:
   - component: {fileID: 6057598188092904214}
   - component: {fileID: 5578325065302432297}
   - component: {fileID: 2633003781154861593}
+  - component: {fileID: 3763298007433454928}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -636,6 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18bc8271715ebd4cb2869b61b67bbb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parri: 0
 --- !u!50 &1692511053731405159
 Rigidbody2D:
   serializedVersion: 5
@@ -724,8 +726,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 0
   weaponType: 1
-  moveSpeed: 8.47
-  jumpForce: 6.55
+  moveSpeed: 8
+  jumpForce: 7
   dodgeSpeed: 8
   attackSpeed: 1
   rb: {fileID: 0}
@@ -781,6 +783,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.62, y: 5.39}
   m_EdgeRadius: 0
+--- !u!114 &3763298007433454928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6141206272957383989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b53edbb2cc9a5745851d5fed9810865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parryWindow: 0.2
+  cooldown: 0
 --- !u!1 &8178091760228583651
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,41 +1,117 @@
-// ✅ ParrySystem.cs
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+using System.Collections;
 
 public class ParrySystem : MonoBehaviour
 {
     private bool isParryActive = false;
-    private float parryTimer = 0f;
-    private float cooldownTimer = 0f;
+    private float parryDuration = 1f;
+    private float parryCooldown = 5f;
+    private float lastParryTime = -999f;
 
-    public float parryWindow = 1f;   // 발동 시간
-    public float cooldown = 5f;      // 쿨타임
+    private Volume postProcessVolume;
+    private Vignette vignette;
+    private Camera mainCam;
+    private float originalCamSize;
+    private Vector3 originalCamPos;
+    private TwoPlayerCamera twoPlayerCam;
 
-    public bool IsParryActive() => isParryActive;
-
-    public void ActivateParry()
+    private void Start()
     {
-        if (cooldownTimer <= 0f)
+        twoPlayerCam = FindObjectOfType<TwoPlayerCamera>();
+        postProcessVolume = FindObjectOfType<Volume>();
+        if (postProcessVolume != null)
+            postProcessVolume.profile.TryGet(out vignette);
+        // 게임 시작 시 비네트 효과 끄기
+        if (vignette != null)
+            vignette.intensity.Override(0f);
+
+        mainCam = Camera.main;
+        if (mainCam != null)
         {
-            isParryActive = true;
-            parryTimer = parryWindow;
-            cooldownTimer = cooldown;
-            Debug.Log("🛡️ 패링 발동");
+            originalCamPos = mainCam.transform.position;
+            originalCamSize = mainCam.orthographicSize;
         }
     }
 
-    private void Update()
+    public void ActivateParry()
     {
-        if (isParryActive)
+        if (Time.time - lastParryTime > parryCooldown)
         {
-            parryTimer -= Time.deltaTime;
-            if (parryTimer <= 0f)
-            {
-                isParryActive = false;
-                Debug.Log("패링 종료");
-            }
+            isParryActive = true;
+            lastParryTime = Time.time;
+            Invoke(nameof(DeactivateParry), parryDuration);
+        }
+    }
+
+    public bool IsParryActive() => isParryActive;
+
+    private void DeactivateParry()
+    {
+        isParryActive = false;
+    }
+
+    public void OnParrySuccess()
+    {
+        StartCoroutine(PlayParryEffects());
+    }
+
+    private IEnumerator PlayParryEffects()
+    {
+        if (twoPlayerCam != null)
+            twoPlayerCam.enabled = false;
+        // 1. 슬로우 모션
+        Time.timeScale = 0.2f;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+        // 2. 카메라 줌 + Y축 이동
+        float zoomedSize = originalCamSize * 0.75f;
+        Vector3 shiftedCamPos = mainCam != null ? mainCam.transform.position : originalCamPos;
+        shiftedCamPos.y -= 5f; // y 위치를 조금 아래로 이동
+        // var twoPlayerCam = FindObjectOfType<TwoPlayerCamera>();
+        // Vector3 shiftedCamPos = originalCamPos;
+        // if (twoPlayerCam != null)
+        // {
+        //     shiftedCamPos.y = twoPlayerCam.transform.position.y;
+        // }
+        // if (mainCam != null)
+        // {
+        //     mainCam.orthographicSize = zoomedSize;
+        //     mainCam.transform.position = shiftedCamPos;
+        // }
+
+        if (mainCam != null)
+        {
+            mainCam.orthographicSize = zoomedSize;
+            mainCam.transform.position = shiftedCamPos;
         }
 
-        if (cooldownTimer > 0f)
-            cooldownTimer -= Time.deltaTime;
+        // 3. 비네트 효과
+        if (vignette != null)
+        {
+            vignette.intensity.Override(0.5f);
+        }
+
+        // 4. 연출 시간 유지
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        // 5. 원상복구
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
+
+        if (mainCam != null)
+        {
+            mainCam.orthographicSize = originalCamSize;
+            mainCam.transform.position = originalCamPos;
+        }
+
+        if (vignette != null)
+        {
+            vignette.intensity.Override(0f);
+        }
+        
+        if (twoPlayerCam != null)
+        twoPlayerCam.enabled = true;
     }
 }
