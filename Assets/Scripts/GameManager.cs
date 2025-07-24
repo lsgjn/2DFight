@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,38 +11,32 @@ public class GameManager : MonoBehaviour
     public PlayerController player2;
 
     [Header("UI 요소")]
-    public GameObject victoryPanel;  // 승리 UI 패널
-    public TMP_Text victoryText;     // 승리 메시지를 표시할 텍스트
+    public GameObject victoryPanel;     // 승리 UI 패널
+    public Image victoryImage;          // 승리 이미지 (텍스트 대체)
 
     private bool gameEnded = false;
 
     void Awake()
     {
-        if (Instance == null) 
+        if (Instance == null)
             Instance = this;
-        else 
+        else
             Destroy(gameObject);
-    }
-
-    void Start()
-    {
-        // 게임 시작 시 PrefabBuilder에서 생성된 player1과 player2 참조 (이미 생성됨)
-        // PrefabBuilder에서 player1과 player2가 GameManager에 할당됨
-        // 이 부분은 따로 호출하지 않더라도 PrefabBuilder에서 GameManager.Instance.player1, player2에 할당됨.
     }
 
     void Update()
     {
         if (gameEnded) return;
 
-        // 플레이어가 죽었는지 확인
-        if (player1 != null && player1.GetComponent<DamageReceiver>().IsDead())
+        if (player1 != null && player1.GetComponent<DamageReceiver>()?.IsDead() == true)
         {
-            EndGame(player2); // 플레이어 2 승리
+            if (player2 != null)
+                EndGame(player2); // 2P 승리
         }
-        else if (player2 != null && player2.GetComponent<DamageReceiver>().IsDead())
+        else if (player2 != null && player2.GetComponent<DamageReceiver>()?.IsDead() == true)
         {
-            EndGame(player1); // 플레이어 1 승리
+            if (player1 != null)
+                EndGame(player1); // 1P 승리
         }
     }
 
@@ -50,33 +44,28 @@ public class GameManager : MonoBehaviour
     {
         gameEnded = true;
 
-        // 승리 UI 표시
-        if (victoryPanel != null && victoryText != null)
-        {
+        // 승리 UI 패널 표시
+        if (victoryPanel != null)
             victoryPanel.SetActive(true);
 
-            // 승리한 플레이어에 따라 메시지 설정
-            if (winner.playerId == PlayerController.PlayerId.Player1)
-            {
-                victoryText.text = "1P Win!";
-            }
-            else if (winner.playerId == PlayerController.PlayerId.Player2)
-            {
-                victoryText.text = "2P Win!";
-            }
-        }
+        if (victoryImage != null)
+            victoryImage.gameObject.SetActive(true);
 
-        // 게임 종료 후 캐릭터 선택 씬으로 전환
-        Invoke("ReturnToCharacterSelect", 3f); // 게임 종료 후 캐릭터 선택 씬으로 전환
+        // 카메라 포커싱
+        var cam = Camera.main?.GetComponent<TwoPlayerCamera>();
+        if (cam != null)
+            cam.FocusOnWinner(winner.transform);
     }
 
-    void ReturnToCharacterSelect()
+    // 캐릭터 선택 씬으로 이동하는 버튼용 함수
+    public void ReturnToCharacterSelect()
     {
-        SceneManager.LoadScene("CharacterSelectScene");
+        SceneManager.LoadScene("GameScene");  // 필요 시 이름 변경
     }
 
+    // 재시작 버튼용 함수
     public void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // 현재 씬을 다시 로드
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
