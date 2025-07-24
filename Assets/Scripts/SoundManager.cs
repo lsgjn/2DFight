@@ -1,30 +1,55 @@
-// public class SoundManager : MonoBehaviour
-// {
-//     public static SoundManager Instance;
+using UnityEngine;
 
-//     public AudioClip hitClip;
-//     public AudioClip parrySuccessClip;
-//     public AudioClip parryFailClip;
-//     public AudioClip deathClip;
-//     public AudioClip jumpClip;
+public class SoundManager : MonoBehaviour
+{
+    public static SoundManager Instance;
 
-//     private AudioSource audioSource;
+    public AudioClip KatanaSlashClip;
+    public AudioClip LongSwordSlashClip;
+    public AudioClip NormalswordClip;
+    public AudioClip guardClip;
+    public AudioClip dashClip;
 
-//     void Awake()
-//     {
-//         if (Instance == null) Instance = this;
-//         else Destroy(gameObject);
+    private AudioSource audioSource;
 
-//         audioSource = GetComponent<AudioSource>();
-//     }
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // 씬 넘어가도 유지
+        }
+        else
+        {
+            Destroy(gameObject); // 중복 제거
+        }
+    }
 
-//     public void Play(AudioClip clip)
-//     {
-//         if (clip != null)
-//             audioSource.PlayOneShot(clip);
-//     }
 
-//     public void PlayHit() => Play(hitClip);
-//     public void PlayParrySuccess() => Play(parrySuccessClip);
-//     public void PlayDeath() => Play(deathClip);
-// }
+    public void Play(AudioClip clip)
+    {
+        if (clip != null)
+            audioSource.PlayOneShot(clip);
+    }
+
+    public void PlayKatanaSlash()
+    {
+        Play(KatanaSlashClip);
+    }
+    public void PlayLongSwordSlash()
+    {
+        Play(LongSwordSlashClip);
+    }
+    public void PlayNormalsword()
+    {
+        Play(NormalswordClip);
+    }
+    public void PlayGuard()
+    {
+        Play(guardClip);
+    }
+    public void PlayDash()
+    {
+        Play(dashClip);
+    }
+}

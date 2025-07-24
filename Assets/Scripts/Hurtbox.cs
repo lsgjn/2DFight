@@ -21,7 +21,7 @@ public class Hurtbox : MonoBehaviour
             Debug.Log("🛡️ 패링 성공 - 데미지 무효");
             parry.OnParrySuccess();
             var playerController = GetComponentInParent<PlayerController>();
-            playerController?.FlashRed(true);
+            playerController?.FlashRed();
         }
         // ✅ 2. 가드 상태라면 → 데미지 1/4
         else if (guard != null && guard.IsGuarding())

@@ -31,8 +31,10 @@ public class IdleState : PlayerState
         else if (input.GuardPressed)
             controller.TransitionTo(new GuardState(controller));
         
-        else if (input.GuardHeld)
-            controller.TransitionTo(new ChargingState(controller));
+        // else if (input.GuardHeld)
+        //     controller.TransitionTo(new ChargingState(controller));
+        else if (input.DashPressed)
+            controller.TransitionTo(new DashState(controller));
 
     }
 

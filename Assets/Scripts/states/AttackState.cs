@@ -18,6 +18,7 @@ public class AttackState : PlayerState
         elapsed = 0f;
         hasActivatedHitbox = false;
         controller.IsParryable = false;
+        SoundManager.Instance.PlayNormalsword();
     }
 
     public override void Update()

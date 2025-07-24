@@ -653,7 +653,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -726,8 +726,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 0
   weaponType: 1
-  moveSpeed: 8
-  jumpForce: 7
+  moveSpeed: 10
+  jumpForce: 25
   dodgeSpeed: 8
   attackSpeed: 1
   rb: {fileID: 0}
@@ -795,8 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b53edbb2cc9a5745851d5fed9810865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parryWindow: 0.2
-  cooldown: 0
+  spriteRenderer: {fileID: 0}
 --- !u!1 &8178091760228583651
 GameObject:
   m_ObjectHideFlags: 0

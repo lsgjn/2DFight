@@ -16,6 +16,7 @@ public class ParrySystem : MonoBehaviour
     private float originalCamSize;
     private Vector3 originalCamPos;
     private TwoPlayerCamera twoPlayerCam;
+    public SpriteRenderer spriteRenderer;
 
     private void Start()
     {
@@ -55,7 +56,10 @@ public class ParrySystem : MonoBehaviour
     public void OnParrySuccess()
     {
         StartCoroutine(PlayParryEffects());
+        
     }
+
+    
 
     private IEnumerator PlayParryEffects()
     {
@@ -66,7 +70,7 @@ public class ParrySystem : MonoBehaviour
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
         // 2. 카메라 줌 + Y축 이동
-        float zoomedSize = originalCamSize * 0.75f;
+        float zoomedSize = originalCamSize * 0.9f;
         Vector3 shiftedCamPos = mainCam != null ? mainCam.transform.position : originalCamPos;
         shiftedCamPos.y -= 5f; // y 위치를 조금 아래로 이동
         // var twoPlayerCam = FindObjectOfType<TwoPlayerCamera>();
@@ -94,7 +98,7 @@ public class ParrySystem : MonoBehaviour
         }
 
         // 4. 연출 시간 유지
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.6f);
 
         // 5. 원상복구
         Time.timeScale = 1f;
@@ -110,8 +114,9 @@ public class ParrySystem : MonoBehaviour
         {
             vignette.intensity.Override(0f);
         }
-        
+
         if (twoPlayerCam != null)
-        twoPlayerCam.enabled = true;
+            twoPlayerCam.enabled = true;
+            
     }
 }

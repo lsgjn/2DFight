@@ -31,6 +31,10 @@ public class RunState : PlayerState
 
         else if (input.GuardPressed)
             controller.TransitionTo(new GuardState(controller));
+            
+        else if (input.DashPressed)
+            controller.TransitionTo(new DashState(controller));
+
     }
 
     public override void Update()

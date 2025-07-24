@@ -15,6 +15,8 @@ public class GuardState : PlayerState
 
     public override void Enter()
     {
+        SoundManager.Instance.PlayGuard();
+
         controller.animator.SetState(SpriteAnimator.AnimState.Guard);
         controller.rb.linearVelocity = Vector2.zero;
         elapsed = 0f;

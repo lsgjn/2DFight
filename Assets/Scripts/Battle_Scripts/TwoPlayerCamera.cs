@@ -14,7 +14,7 @@ public class TwoPlayerCamera : MonoBehaviour
     public float followSpeed = 5f;
 
     [Tooltip("화면 높이를 낮추려면 음수로 설정")]
-    public float yOffset = -1.5f;
+    public float yOffset = 7f;
 
     [Header("Distance Zoom Factor")]
     public float zoomFactor = 0.5f;

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -15,6 +16,8 @@ public class PlayerInputHandler : MonoBehaviour
     public bool DodgePressed { get; private set; }
     public bool GuardHeld { get; private set; }
 
+    public bool DashPressed{ get; private set; }
+
     public void ReadInput()
     {
         if (playerId == PlayerId.Player1)
@@ -28,6 +31,7 @@ public class PlayerInputHandler : MonoBehaviour
             GuardPressed = Input.GetKey(KeyCode.G);
             GuardHeld = Input.GetKey(KeyCode.G);
             AttackPressed = Input.GetKeyDown(KeyCode.F);
+            DashPressed = Input.GetKeyDown(KeyCode.H);
         }
         else if (playerId == PlayerId.Player2)
         {
@@ -40,6 +44,7 @@ public class PlayerInputHandler : MonoBehaviour
             GuardPressed = Input.GetKey(KeyCode.Keypad2);
             GuardHeld = Input.GetKey(KeyCode.Keypad2);
             AttackPressed = Input.GetKeyDown(KeyCode.Keypad1);
+            DashPressed = Input.GetKeyDown(KeyCode.Keypad3);
         }
     }
 }

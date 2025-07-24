@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public float dodgeSpeed = 8f; // 프리팹별 회피 속도
     public float attackSpeed = 1f; // 프리팹별 공격 속도 또는 딜레이
 
+
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public SpriteAnimator animator;
     [HideInInspector] public PlayerInputHandler input;
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 originalScale;
 
     public bool IsGuarding { get; private set; }
+    public bool IsFacingRight { get; private set; }
     public void SetGuarding(bool value) => IsGuarding = value;
 
     public GameObject deathEffectPrefab;
@@ -98,6 +100,7 @@ public class PlayerController : MonoBehaviour
     public void FaceDirection(float moveX)
     {
         bool facingRight = moveX > 0.05f;
+        IsFacingRight = facingRight;
 
         // 스프라이트 반전
         if (facingRight)
@@ -119,23 +122,19 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    
-    public void FlashRed(bool isParry = false)
+
+    public void FlashRed()
     {
         if (spriteRenderer == null) return;
 
         Color flashColor;
-        if (isParry)
-            flashColor = new Color32(204,204,204,255); // 원하는 RGB 색상
-        else
-            flashColor = IsGuarding ? Color.gray : Color.red;
-
-        StartCoroutine(FlashCoroutine(flashColor));
+        Color originalColor = spriteRenderer.color;
+        flashColor = IsGuarding ? Color.gray : Color.red;
+        StartCoroutine(FlashCoroutine(flashColor, originalColor));
     }
 
-    private IEnumerator FlashCoroutine(Color flashColor)
+    private IEnumerator FlashCoroutine(Color flashColor, Color original)
     {
-        Color originalColor = spriteRenderer.color;
         float flashDuration = 0.1f;
         int flashCount = 2;
 
@@ -143,10 +142,11 @@ public class PlayerController : MonoBehaviour
         {
             spriteRenderer.color = flashColor;
             yield return new WaitForSeconds(flashDuration);
-            spriteRenderer.color = originalColor;
+            spriteRenderer.color = original;
             yield return new WaitForSeconds(flashDuration);
         }
-        spriteRenderer.color = originalColor;
+        spriteRenderer.color = original;
     }
+
 
 }
