@@ -19,15 +19,36 @@ public class TwoPlayerCamera : MonoBehaviour
     [Header("Distance Zoom Factor")]
     public float zoomFactor = 0.5f;
 
+    [Header("Winner Follow Offset")]
+public float winnerYOffset = -0.5f; // 승자 팔로우 시 더 많이 내려감
+
+
     private Camera cam;
+
+    // 승자 따라가기용 변수
+    private Transform winnerTarget = null;
+    private bool isWinnerFocus = false;
+    private float winnerZoomSize = 8f; // 원하는 줌 크기
 
     void Start()
     {
         cam = GetComponent<Camera>();
     }
 
-    void LateUpdate()
+   void LateUpdate()
+{
+    if (isWinnerFocus && winnerTarget != null)
     {
+        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, winnerZoomSize, zoomSpeed * Time.deltaTime);
+        Vector3 targetPos = new Vector3(
+            winnerTarget.position.x,
+            winnerTarget.position.y + winnerYOffset, // 승자 팔로우 시만 winnerYOffset 사용
+            transform.position.z
+        );
+        transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
+        return;
+    }
+
         if (player1 == null || player2 == null) return;
 
         // 두 플레이어 중심 위치
@@ -52,8 +73,14 @@ public class TwoPlayerCamera : MonoBehaviour
         float targetX = (minX + maxX) / 2f;
         float targetY = (minY + maxY) / 2f + yOffset;
 
-        // 실제로는 카메라 화면 내에 플레이어가 벗어나지 않게 중심을 보정
         Vector3 newPosition = new Vector3(targetX, targetY, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, newPosition, followSpeed * Time.deltaTime);
+    }
+
+    // 승자 따라가기 시작
+    public void FocusOnWinner(Transform winner)
+    {
+        winnerTarget = winner;
+        isWinnerFocus = true;
     }
 }
