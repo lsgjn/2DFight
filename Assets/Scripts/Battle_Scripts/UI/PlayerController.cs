@@ -123,6 +123,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private Coroutine flashRoutine;
+
     public void FlashRed()
     {
         if (spriteRenderer == null) return;
@@ -130,14 +132,15 @@ public class PlayerController : MonoBehaviour
         Color flashColor;
         Color originalColor = spriteRenderer.color;
         flashColor = IsGuarding ? Color.gray : Color.red;
-        StartCoroutine(FlashCoroutine(flashColor, originalColor));
+        if (flashRoutine != null)
+            StopCoroutine(flashRoutine);
+        flashRoutine = StartCoroutine(FlashCoroutine(flashColor, originalColor));
     }
 
     private IEnumerator FlashCoroutine(Color flashColor, Color original)
     {
         float flashDuration = 0.1f;
         int flashCount = 2;
-
         for (int i = 0; i < flashCount; i++)
         {
             spriteRenderer.color = flashColor;
@@ -146,6 +149,7 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(flashDuration);
         }
         spriteRenderer.color = original;
+        flashRoutine = null;
     }
 
 

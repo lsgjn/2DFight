@@ -8,6 +8,7 @@ public class BackgroundFitter : MonoBehaviour
 
     void Start()
     {
+        SoundManager.Instance.PlayGameLoop();
         cam = Camera.main;
         sr = GetComponent<SpriteRenderer>();
     }

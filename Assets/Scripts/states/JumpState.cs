@@ -3,11 +3,14 @@ using UnityEngine;
 public class JumpState : PlayerState
 {
     private bool hasJumped = false;
+    private float elapsed = 0f;
 
-    public JumpState(PlayerController controller) : base(controller) {}
+    public JumpState(PlayerController controller) : base(controller) { }
 
     public override void Enter()
     {
+        if (elapsed == 0f) // 처음 진입 시에만 사운드 재생
+            SoundManager.Instance.PlayJump();
         controller.animator.SetState(SpriteAnimator.AnimState.Jump);
         hasJumped = false;
     }

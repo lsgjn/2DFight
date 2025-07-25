@@ -77,6 +77,7 @@ public class Hitbox : MonoBehaviour
                 // ✅ 핵심 수정: CombatResolver 대신 hurtbox.ReceiveHit 호출
                 hurtbox.ReceiveHit(attacker.gameObject);
                 Debug.Log($"⭐ Hit 발생: {attacker.name} → {defender.name}");
+                SoundManager.Instance.PlayHurt();
             }
         }
 

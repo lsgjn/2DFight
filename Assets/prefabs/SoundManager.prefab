@@ -45,11 +45,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc339ab60f09b94db500f61b67a3dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KatanaSlashClip: {fileID: 8300000, guid: 463fd1ad3d08c984cafe3c61c0e1f23e, type: 3}
-  LongSwordSlashClip: {fileID: 8300000, guid: 5e034e9e55091254b93872ac60a14ed3, type: 3}
-  NormalswordClip: {fileID: 8300000, guid: 15e8aabfbf2c4054a8a38dcad8aa6bfc, type: 3}
-  guardClip: {fileID: 8300000, guid: 60d733bf05d17c341a0c2a9ed031ff35, type: 3}
+  parryClip: {fileID: 8300000, guid: 60d733bf05d17c341a0c2a9ed031ff35, type: 3}
+  guardClip: {fileID: 8300000, guid: 492929f7f450bbf49b3ea1619d71db5b, type: 3}
+  jumpClip: {fileID: 8300000, guid: 4ae0b32ca875b1b48ab0d2f68783b568, type: 3}
   dashClip: {fileID: 8300000, guid: 58caac89eaf6d3a4cb5be256ebac5d34, type: 3}
+  hurtClip: {fileID: 8300000, guid: c13aaf0635bddef4f937684b29798981, type: 3}
+  normalswordClip: {fileID: 8300000, guid: 15e8aabfbf2c4054a8a38dcad8aa6bfc, type: 3}
+  mainClip: {fileID: 8300000, guid: bcf229f2599e80441994b5fac009d9f9, type: 3}
+  gameClip: {fileID: 8300000, guid: 59078e2241df12d4ba246d99bf6e8d32, type: 3}
 --- !u!82 &698042720569257466
 AudioSource:
   m_ObjectHideFlags: 0

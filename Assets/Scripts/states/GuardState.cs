@@ -15,8 +15,8 @@ public class GuardState : PlayerState
 
     public override void Enter()
     {
+        if (elapsed == 0f) // 처음 진입 시에만 사운드 재생
         SoundManager.Instance.PlayGuard();
-
         controller.animator.SetState(SpriteAnimator.AnimState.Guard);
         controller.rb.linearVelocity = Vector2.zero;
         elapsed = 0f;
@@ -27,12 +27,11 @@ public class GuardState : PlayerState
 
         foreach (var col in allColliders)
         {
-            if (col.GetComponent<Hitbox>())  // 히트박스만 꺼준다
+            if (col.GetComponent<Hitbox>())
             {
                 col.enabled = false;
+                list.Add(col); // ✅ 빠졌던 부분 추가
             }
-
-
         }
 
         disabledColliders = list.ToArray();
@@ -50,10 +49,13 @@ public class GuardState : PlayerState
     public override void Exit()
     {
         // ✅ 방어 상태에서 비활성화했던 것만 다시 복구
-        foreach (var col in disabledColliders)
+        if (disabledColliders != null)
         {
-            if (col.GetComponent<Hitbox>())
-                col.enabled = true;
+            foreach (var col in disabledColliders)
+            {
+                if (col != null && col.GetComponent<Hitbox>())
+                    col.enabled = true;
+            }
         }
 
         // // ✅ 가드박스는 다시 비활성화

@@ -22,6 +22,8 @@ public class Hurtbox : MonoBehaviour
             parry.OnParrySuccess();
             var playerController = GetComponentInParent<PlayerController>();
             playerController?.FlashRed();
+            SoundManager.Instance.PlayParry();
+            return;
         }
         // ✅ 2. 가드 상태라면 → 데미지 1/4
         else if (guard != null && guard.IsGuarding())

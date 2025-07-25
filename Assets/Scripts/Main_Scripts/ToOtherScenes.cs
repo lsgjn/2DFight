@@ -10,11 +10,12 @@ public class ToOtherScenes : MonoBehaviour
     //private Button storyGame;
     private void Awake()
     {
+        SoundManager.Instance.PlayMainLoop();
         // 씬이 로드될 때 필요한 초기화 작업을 수행할 수 있습니다.
         // 예: 씬 전환 효과 설정 등
         gameStart = GameObject.Find("GameStart").GetComponent<Button>();
         gameExit = GameObject.Find("GameExit").GetComponent<Button>();
-        gameSetting = GameObject.Find("GameSetting").GetComponent<Button>();
+        //gameSetting = GameObject.Find("GameSetting").GetComponent<Button>();
         //storyGame = GameObject.Find("StoryGame").GetComponent<Button>();
     }
     public void LoadScene(string sceneName)
@@ -48,7 +49,7 @@ public class ToOtherScenes : MonoBehaviour
         // 버튼 클릭 이벤트에 메서드를 연결합니다.
         gameStart.onClick.AddListener(OnGameStartButtonClicked);
         gameExit.onClick.AddListener(OnGameExitButtonClicked);
-        gameSetting.onClick.AddListener(OnGameSettingButtonClicked);
+        //gameSetting.onClick.AddListener(OnGameSettingButtonClicked);
         //storyGame.onClick.AddListener(OnStoryGameButtonClicked);
     }
 

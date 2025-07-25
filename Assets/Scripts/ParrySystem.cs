@@ -73,17 +73,6 @@ public class ParrySystem : MonoBehaviour
         float zoomedSize = originalCamSize * 0.9f;
         Vector3 shiftedCamPos = mainCam != null ? mainCam.transform.position : originalCamPos;
         shiftedCamPos.y -= 5f; // y 위치를 조금 아래로 이동
-        // var twoPlayerCam = FindObjectOfType<TwoPlayerCamera>();
-        // Vector3 shiftedCamPos = originalCamPos;
-        // if (twoPlayerCam != null)
-        // {
-        //     shiftedCamPos.y = twoPlayerCam.transform.position.y;
-        // }
-        // if (mainCam != null)
-        // {
-        //     mainCam.orthographicSize = zoomedSize;
-        //     mainCam.transform.position = shiftedCamPos;
-        // }
 
         if (mainCam != null)
         {
@@ -100,15 +89,44 @@ public class ParrySystem : MonoBehaviour
         // 4. 연출 시간 유지
         yield return new WaitForSecondsRealtime(0.6f);
 
-        // 5. 원상복구
-        Time.timeScale = 1f;
-        Time.fixedDeltaTime = 0.02f;
-
+        // 5. 원상복구(플레이어 기준으로 부드럽게)
+        float restoreTime = 0.3f;
+        float t = 0f;
+        float startSize = mainCam.orthographicSize;
+        Vector3 startPos = mainCam.transform.position;
+        float targetSize = originalCamSize;
+        Vector3 targetPos = originalCamPos;
+        // 플레이어 기준으로 복귀
+        if (twoPlayerCam != null && twoPlayerCam.player1 != null && twoPlayerCam.player2 != null)
+        {
+            Vector3 middle = (twoPlayerCam.player1.position + twoPlayerCam.player2.position) * 0.5f;
+            float distance = Vector2.Distance(twoPlayerCam.player1.position, twoPlayerCam.player2.position);
+            float zoomFactor = twoPlayerCam.zoomFactor;
+            float minSize = twoPlayerCam.minSize;
+            float maxSize = twoPlayerCam.maxSize;
+            targetSize = Mathf.Clamp(distance * zoomFactor, minSize, maxSize);
+            targetPos = new Vector3(middle.x, middle.y + twoPlayerCam.yOffset, startPos.z);
+        }
+        while (t < restoreTime)
+        {
+            t += Time.unscaledDeltaTime;
+            float lerp = Mathf.Clamp01(t / restoreTime);
+            if (mainCam != null)
+            {
+                mainCam.orthographicSize = Mathf.Lerp(startSize, targetSize, lerp);
+                mainCam.transform.position = Vector3.Lerp(startPos, targetPos, lerp);
+            }
+            yield return null;
+        }
         if (mainCam != null)
         {
-            mainCam.orthographicSize = originalCamSize;
-            mainCam.transform.position = originalCamPos;
+            mainCam.orthographicSize = targetSize;
+            mainCam.transform.position = targetPos;
         }
+
+        // 슬로우모션 복구
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
 
         if (vignette != null)
         {
@@ -117,6 +135,5 @@ public class ParrySystem : MonoBehaviour
 
         if (twoPlayerCam != null)
             twoPlayerCam.enabled = true;
-            
     }
 }
